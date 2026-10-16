@@ -1,5 +1,4 @@
-import { Welcome } from "../welcome/welcome";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 
 export function meta() {
@@ -10,6 +9,8 @@ export function meta() {
 }
 
 export default function Home() {
+  const [opportunities, setOpportunities] = useState([]);
+  
   useEffect(() => {
     async function fetchOpportunities() {
       const { data, error } = await supabase
@@ -19,12 +20,20 @@ export default function Home() {
       if (error) {
         console.error("Supabase error:", error);
       } else {
-        console.log("Opportunities:", data);
+        setOpportunities(data);
       }
     }
 
     fetchOpportunities();
   }, []);
 
-  return <Welcome />;
+  return (
+  <main>
+    <h1>Volunteering Opportunities</h1>
+
+    {opportunities.map((opportunity) => (
+      <p key={opportunity.id}>{opportunity.title}</p>
+    ))}
+  </main>
+);
 }
