@@ -6,4 +6,5 @@ export default [
   route("opportunities/:opportunityId", "routes/opportunity-details.jsx"),
   route("saved", "routes/saved.jsx"),
   route("signup", "routes/signup.jsx"),
+  route("login", "routes/login.jsx"),
 ];
