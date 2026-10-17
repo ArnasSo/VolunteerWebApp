@@ -7,4 +7,5 @@ export default [
   route("saved", "routes/saved.jsx"),
   route("signup", "routes/signup.jsx"),
   route("login", "routes/login.jsx"),
+  route("my-activities", "routes/my-activities.jsx"),
 ];
