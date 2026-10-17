@@ -1,3 +1,3 @@
 export default function Saved() {
-  return <h1>Saved Opportunities</h1>;
+  return <h1>Saved Activities</h1>;
 }
