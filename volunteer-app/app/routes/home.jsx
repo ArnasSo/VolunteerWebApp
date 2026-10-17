@@ -10,7 +10,7 @@ export function meta() {
 
 export default function Home() {
   const [opportunities, setOpportunities] = useState([]);
-  
+
   useEffect(() => {
     async function fetchOpportunities() {
       const { data, error } = await supabase
