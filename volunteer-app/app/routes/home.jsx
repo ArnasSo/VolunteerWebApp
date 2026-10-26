@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+
+import { useLoaderData } from "react-router";
 import { supabase } from "../lib/supabase";
 
 export function meta() {
@@ -8,32 +9,28 @@ export function meta() {
   ];
 }
 
+export async function clientLoader() {
+  const { data, error } = await supabase
+    .from("opportunities")
+    .select("*");
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return { opportunities: data ?? [] };
+}
+
 export default function Home() {
-  const [opportunities, setOpportunities] = useState([]);
-
-  useEffect(() => {
-    async function fetchOpportunities() {
-      const { data, error } = await supabase
-        .from("opportunities")
-        .select("*");
-
-      if (error) {
-        console.error("Supabase error:", error);
-      } else {
-        setOpportunities(data);
-      }
-    }
-
-    fetchOpportunities();
-  }, []);
+  const { opportunities } = useLoaderData();
 
   return (
-  <main>
-    <h1>Volunteering Opportunities</h1>
+    <main>
+      <h1>Volunteering Opportunities</h1>
 
-    {opportunities.map((opportunity) => (
-      <p key={opportunity.id}>{opportunity.title}</p>
-    ))}
-  </main>
-);
+      {opportunities.map((opportunity) => (
+        <p key={opportunity.id}>{opportunity.title}</p>
+      ))}
+    </main>
+  );
 }
