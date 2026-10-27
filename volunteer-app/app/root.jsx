@@ -7,6 +7,8 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import Navigation from "./components/Navigation.jsx";
+
 import "./app.css";
 
 export const links = () => [
@@ -41,7 +43,14 @@ export function Layout({ children }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <Navigation />
+      <main className="pb-20 md:pb-0">
+        <Outlet />
+      </main>
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }) {
