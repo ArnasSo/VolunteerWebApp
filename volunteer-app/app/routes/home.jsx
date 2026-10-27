@@ -1,36 +1,15 @@
-
-import { useLoaderData } from "react-router";
-import { supabase } from "../lib/supabase";
-
 export function meta() {
   return [
-    { title: "Volunteer App" },
+    { title: "Volunteer Hub" },
     { name: "description", content: "Find local volunteering opportunities" },
   ];
 }
 
-export async function clientLoader() {
-  const { data, error } = await supabase
-    .from("opportunities")
-    .select("*");
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return { opportunities: data ?? [] };
-}
-
 export default function Home() {
-  const { opportunities } = useLoaderData();
-
   return (
-    <main>
-      <h1>Volunteering Opportunities</h1>
-
-      {opportunities.map((opportunity) => (
-        <p key={opportunity.id}>{opportunity.title}</p>
-      ))}
-    </main>
+    <div className="p-4">
+      {/* temporary heading until we build the home page from figma */}
+      <h1 className="text-2xl font-bold">Volunteer Hub</h1>
+    </div>
   );
 }
