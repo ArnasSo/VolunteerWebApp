@@ -6,6 +6,7 @@ export default [
 
   // exploring and viewing volunteering opportunities
   route("explore", "routes/explore.jsx"),
+  route("explore/results", "routes/explore-results.jsx"),
   route("opportunities/:opportunityId", "routes/opportunity-details.jsx"),
 
   // volunteer account pages
