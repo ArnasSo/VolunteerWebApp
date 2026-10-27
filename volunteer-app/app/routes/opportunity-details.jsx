@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useRevalidator } from "react-router";
 import {
   ArrowLeft,
   CalendarDays,
@@ -7,6 +7,7 @@ import {
   MapPin,
   X,
   Check,
+  Bookmark,
 } from "lucide-react";
 import { supabase } from "../lib/supabase";
 
@@ -72,8 +73,28 @@ export async function clientLoader({ params }) {
     profile = data;
   }
 
-  // return both pieces of information to the page
-  return { opportunity, profile };
+
+  // check whether this volunteer has saved the opportunity
+  let isSaved = false;
+
+  if (user) {
+    const { data: savedOpportunity, error: savedError } = await supabase
+      .from("saved_opportunities")
+      .select("opportunity_id")
+      .eq("profile_id", user.id)
+      .eq("opportunity_id", opportunityId)
+      .maybeSingle();
+
+    if (savedError) {
+      throw new Error(savedError.message);
+    }
+
+    isSaved = Boolean(savedOpportunity);
+  }
+
+  // return the opportunity, profile, and bookmark status
+  return { opportunity, profile, isSaved };
+
 }
 
 
@@ -81,7 +102,62 @@ export async function clientLoader({ params }) {
 
 export default function OpportunityDetails({ loaderData }) {
   // get the opportunity and profile from clientLoader
-  const { opportunity, profile } = loaderData;
+  const { opportunity, profile, isSaved } = loaderData;
+
+
+  // refresh the loader after saving or removing a bookmark
+  const revalidator = useRevalidator();
+
+  // track bookmark updates and errors
+  const [savingBookmark, setSavingBookmark] = useState(false);
+  const [bookmarkError, setBookmarkError] = useState("");
+
+  // save or remove this opportunity from the volunteer's saved list
+  async function handleBookmark() {
+    if (savingBookmark) return;
+
+    // guests need to log in before saving opportunities
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    setSavingBookmark(true);
+    setBookmarkError("");
+
+    let error;
+
+    if (isSaved) {
+      // remove the existing bookmark
+      ({ error } = await supabase
+        .from("saved_opportunities")
+        .delete()
+        .eq("profile_id", user.id)
+        .eq("opportunity_id", opportunity.id));
+    } else {
+      // save the opportunity for this volunteer
+      ({ error } = await supabase
+        .from("saved_opportunities")
+        .insert({
+          profile_id: user.id,
+          opportunity_id: opportunity.id,
+        }));
+    }
+
+    if (error) {
+      setBookmarkError(error.message);
+    } else {
+      // reload the saved status from supabase
+      revalidator.revalidate();
+    }
+
+    setSavingBookmark(false);
+  }
+
 
   // control whether the application overlay is visible
   const [showApplication, setShowApplication] = useState(false);
@@ -213,14 +289,43 @@ export default function OpportunityDetails({ loaderData }) {
   return (
     <div className="min-h-screen bg-white text-gray-900">
       <div className="mx-auto max-w-4xl px-6 py-6">
-        {/* back link takes the user to explore results */}
-        <Link
-          to="/explore/results"
-          className="mb-6 inline-flex items-center gap-2 text-green-800"
-        >
-          <ArrowLeft size={20} aria-hidden="true" />
-          Back to results
-        </Link>
+
+        {/* navigation and bookmark actions */}
+        <div className="mb-6 flex items-center justify-between">
+
+          {/* return to explore results */}
+          <Link
+            to="/explore/results"
+            aria-label="Back to results"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-[#DDEBE1] text-[#204F3D]"
+          >
+            <ArrowLeft size={22} aria-hidden="true" />
+          </Link>
+          <button
+            type="button"
+            onClick={handleBookmark}
+            disabled={savingBookmark}
+            aria-label={isSaved ? "Remove saved opportunity" : "Save opportunity"}
+            aria-pressed={isSaved}
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-[#DDEBE1] text-[#204F3D] disabled:opacity-50"
+          >
+            <Bookmark
+              size={22}
+              fill={isSaved ? "currentColor" : "none"}
+              aria-hidden="true"
+            />
+          </button>
+
+
+        </div>
+
+        
+            {bookmarkError && (
+              <p role="alert" className="mb-4 text-sm text-red-600">
+                {bookmarkError}
+              </p>
+            )}
+
 
         {/* opportunity title */}
         <h1 className="text-2xl font-bold leading-tight">

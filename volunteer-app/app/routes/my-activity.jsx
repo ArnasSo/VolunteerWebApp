@@ -4,6 +4,7 @@ import ActivityTabs from "../components/my-activity/ActivityTabs";
 import ApplicationCard from "../components/my-activity/ApplicationCard";
 import InboxCard from "../components/my-activity/InboxCard";
 import ConversationView from "../components/my-activity/ConversationView";
+import SavedCard from "../components/my-activity/SavedCard";
 import { supabase } from "../lib/supabase";
 
 // clientLoader fetches applications belonging to the logged-in volunteer
@@ -45,19 +46,42 @@ export async function clientLoader() {
 
     .eq("profile_id", user.id)
     .order("created_at", { ascending: false });
-  // show an error if the database request fails
+
   if (error) {
     throw new Error(error.message);
   }
 
-  // return the applications to our page
-  return data || [];
+  // fetch opportunities saved by the logged-in volunteer
+  const { data: saved, error: savedError } = await supabase
+    .from("saved_opportunities")
+    .select(`
+    opportunity_id,
+    opportunities(
+      id,
+      title,
+      image_url,
+      organizations(name)
+    )
+  `)
+    .eq("profile_id", user.id)
+    .order("created_at", { ascending: false });
+
+  if (savedError) {
+    throw new Error(savedError.message);
+  }
+
+  // return both applications and saved opportunities
+  return {
+    applications: data || [],
+    saved: saved || [],
+  };
+
 }
 
 export default function MyActivity({ loaderData }) {
 
-  // applications returned by clientLoader
-  const applications = loaderData;
+  // get applications and saved opportunities from clientLoader
+  const { applications, saved } = loaderData;
 
 
   // turn applications with messages into inbox conversations
@@ -162,12 +186,32 @@ export default function MyActivity({ loaderData }) {
         )}
 
 
-        {/* placeholders for tabs we haven't built yet */}
-        {(activeTab === "Saved" || activeTab === "Done") && (
+
+        {/* display opportunities saved by the volunteer */}
+        {activeTab === "Saved" && (
+          <div className="mt-6 space-y-3">
+            {saved.length > 0 ? (
+              saved.map((savedOpportunity) => (
+                <SavedCard
+                  key={savedOpportunity.opportunity_id}
+                  savedOpportunity={savedOpportunity}
+                />
+              ))
+            ) : (
+              <p className="text-center text-gray-600">
+                You haven't saved any opportunities yet.
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* done tab will use dummy data later */}
+        {activeTab === "Done" && (
           <p className="mt-6 text-gray-600">
-            {activeTab} content will appear here.
+            Done content will appear here.
           </p>
         )}
+
 
 
       </div>
