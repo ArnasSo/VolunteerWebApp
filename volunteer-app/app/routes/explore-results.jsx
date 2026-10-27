@@ -1,5 +1,6 @@
 import { useSearchParams } from "react-router";
 import { supabase } from "../lib/supabase";
+import OpportunityCard from "../components/OpportunityCard";
 
 // meta sets the browser tab title and description
 export function meta() {
@@ -23,15 +24,35 @@ export async function clientLoader({ request }) {
     .split(",")
     .filter(Boolean);
 
-  // get opportunities and their connected location and interests
+  // get the information needed to display opportunity cards
+  // we also fetch related information from other tables
   let query = supabase.from("opportunities").select(`
+    id,
+    title,
+    image_url,
+    commitment_type,
+    locations!inner(name),
+    organizations(name),
+    opportunity_interests(
+      interests(name)
+    )
+  `);
+
+  // only require a matching interest when the user selected interests
+  // this allows opportunities without interests in unfiltered searches
+  if (interests.length > 0) {
+    query = supabase.from("opportunities").select(`
       id,
       title,
+      image_url,
+      commitment_type,
       locations!inner(name),
+      organizations(name),
       opportunity_interests!inner(
         interests!inner(name)
       )
     `);
+  }
 
   // filter by location only when a location was selected
   if (location) {
@@ -108,17 +129,10 @@ export default function ExploreResults({ loaderData }) {
       )}
 
       {/* display the opportunities received from supabase */}
-      <div className="mt-6 space-y-3">
-        {/* map creates one card for each opportunity */}
+      <div className="mt-6 space-y-4">
+        {/* create one reusable card for each opportunity */}
         {opportunities.map((opportunity) => (
-          <div
-            // key helps React identify each opportunity
-            key={opportunity.id}
-            className="rounded-lg border border-gray-200 p-4"
-          >
-            {/* display the title stored in our database */}
-            <h2 className="font-semibold">{opportunity.title}</h2>
-          </div>
+          <OpportunityCard key={opportunity.id} opportunity={opportunity} />
         ))}
       </div>
     </div>
