@@ -74,14 +74,37 @@ export async function clientLoader({ request }) {
     throw new Error(error.message);
   }
 
-  // return the matching opportunities to the page
-  return data || [];
+  // get the currently logged-in volunteer
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // store the ids of saved opportunities
+  let savedIds = [];
+
+  // only fetch bookmarks when someone is logged in
+  if (user) {
+    const { data: saved, error: savedError } = await supabase
+      .from("saved_opportunities")
+      .select("opportunity_id")
+      .eq("profile_id", user.id);
+
+    if (savedError) {
+      throw new Error(savedError.message);
+    }
+
+    // turn saved records into an array of opportunity ids
+    savedIds = (saved || []).map((item) => item.opportunity_id);
+  }
+
+  // return both opportunities and saved ids
+  return { opportunities: data || [], savedIds };
 }
 
 // loaderData contains the opportunities returned by clientLoader
 export default function ExploreResults({ loaderData }) {
   // store the opportunities in a variable for easier reading
-  const opportunities = loaderData;
+  const { opportunities, savedIds } = loaderData;
 
   // useSearchParams allows us to read information from the url
   // for example: /explore/results?location=Aarhus
@@ -142,7 +165,11 @@ export default function ExploreResults({ loaderData }) {
       <div className="mt-6 space-y-4">
         {/* create one reusable card for each opportunity */}
         {opportunities.map((opportunity) => (
-          <OpportunityCard key={opportunity.id} opportunity={opportunity} />
+          <OpportunityCard
+            key={opportunity.id}
+            opportunity={opportunity}
+            isSaved={savedIds.includes(opportunity.id)}
+          />
         ))}
       </div>
     </div>
