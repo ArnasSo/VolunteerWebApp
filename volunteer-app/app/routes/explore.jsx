@@ -19,8 +19,24 @@ export default function Explore() {
   // the empty string means no location is selected yet
   const [location, setLocation] = useState("");
 
+  // store all interests selected by the user in an array
+  // an array lets us keep more than one selected interest
+  const [interests, setInterests] = useState([]);
+
   // useNavigate allows us to send the user to another page
   const navigate = useNavigate();
+
+  // add or remove an interest when its checkbox is clicked
+  function handleInterestChange(interest) {
+    // check whether this interest is already selected
+    if (interests.includes(interest)) {
+      // remove it from the array if it was already selected
+      setInterests(interests.filter((item) => item !== interest));
+    } else {
+      // add it to the array if it wasn't selected
+      setInterests([...interests, interest]);
+    }
+  }
 
   // this function runs when the search button is clicked
   function handleSearch() {
@@ -31,6 +47,12 @@ export default function Explore() {
     // only add the location if the user has selected one
     if (location) {
       params.set("location", location);
+    }
+
+    // add selected interests to the url, separated by commas
+    // for example: interests=Animal Welfare,Sustainability
+    if (interests.length > 0) {
+      params.set("interests", interests.join(","));
     }
 
     // navigate to the results page with the selected location
@@ -84,6 +106,52 @@ export default function Explore() {
           <option value="Aalborg">Aalborg</option>
           <option value="Copenhagen">Copenhagen</option>
         </select>
+
+        {/* interest selection section */}
+        <div className="mt-6">
+          <p className="font-medium">What are you interested in?</p>
+
+          {/* each checkbox represents one volunteering interest */}
+          <div className="mt-3 flex flex-col gap-3">
+            {/* checked is true when the interest is in our selected interests array */}
+            {/* onChange adds or removes the interest when clicked */}
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={interests.includes("Animal Welfare")}
+                onChange={() => handleInterestChange("Animal Welfare")}
+              />
+              Animal Welfare
+            </label>
+
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={interests.includes("Sustainability")}
+                onChange={() => handleInterestChange("Sustainability")}
+              />
+              Sustainability
+            </label>
+
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={interests.includes("Community")}
+                onChange={() => handleInterestChange("Community")}
+              />
+              Community
+            </label>
+
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={interests.includes("Culture")}
+                onChange={() => handleInterestChange("Culture")}
+              />
+              Culture
+            </label>
+          </div>
+        </div>
 
         {/* button starts the search when clicked */}
         {/* type="button" means it won't submit a form automatically */}
