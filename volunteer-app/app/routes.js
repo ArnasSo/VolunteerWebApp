@@ -8,4 +8,5 @@ export default [
   route("signup", "routes/signup.jsx"),
   route("login", "routes/login.jsx"),
   route("my-activities", "routes/my-activities.jsx"),
+  route("profile", "routes/profile.jsx"),
 ];
