@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { redirect } from "react-router";
+import { redirect, useRevalidator } from "react-router";
 import ActivityTabs from "../components/my-activity/ActivityTabs";
 import ApplicationCard from "../components/my-activity/ApplicationCard";
 import InboxCard from "../components/my-activity/InboxCard";
+import ConversationView from "../components/my-activity/ConversationView";
 import { supabase } from "../lib/supabase";
 
 // clientLoader fetches applications belonging to the logged-in volunteer
@@ -41,7 +42,6 @@ export async function clientLoader() {
         created_at
       )
     `)
-    
 
     .eq("profile_id", user.id)
     .order("created_at", { ascending: false });
@@ -55,6 +55,7 @@ export async function clientLoader() {
 }
 
 export default function MyActivity({ loaderData }) {
+
   // applications returned by clientLoader
   const applications = loaderData;
 
@@ -77,12 +78,22 @@ export default function MyActivity({ loaderData }) {
         organizationName: organization?.name || "Organization",
         avatarUrl: organization?.contact_avatar_url,
         lastMessage: latestMessage.content,
+
+        // messages are displayed in chronological order
+        messages: [...application.messages].sort(
+          (a, b) => new Date(a.created_at) - new Date(b.created_at)
+        ),
       };
     });
 
 
   // remember which tab the volunteer selected
   const [activeTab, setActiveTab] = useState("Applied");
+  // remember which conversation the volunteer opened
+  const [selectedConversation, setSelectedConversation] = useState(null);
+
+  // refresh clientLoader data after sending a message
+  const revalidator = useRevalidator();
 
   return (
     <div className="min-h-screen bg-[#F4F9F5] px-6 py-10 text-gray-900">
@@ -117,23 +128,39 @@ export default function MyActivity({ loaderData }) {
           </div>
         )}
 
-        {/* inbox displays conversations connected to applications */}
+        {/* inbox displays either the conversation list or an opened conversation */}
         {activeTab === "Inbox" && (
-          <div className="mt-6 space-y-3">
-            {conversations.length > 0 ? (
-              conversations.map((conversation) => (
-                <InboxCard
-                  key={conversation.id}
-                  conversation={conversation}
-                />
-              ))
+          <div className="mt-6">
+            {selectedConversation ? (
+              <ConversationView
+                conversation={
+                  conversations.find(
+                    (conversation) => conversation.id === selectedConversation.id
+                  ) || selectedConversation
+                }
+                onBack={() => setSelectedConversation(null)}
+                onMessageSent={() => revalidator.revalidate()}
+              />
             ) : (
-              <p className="text-center text-gray-600">
-                You don't have any conversations yet.
-              </p>
+              <div className="space-y-3">
+                {conversations.length > 0 ? (
+                  conversations.map((conversation) => (
+                    <InboxCard
+                      key={conversation.id}
+                      conversation={conversation}
+                      onClick={() => setSelectedConversation(conversation)}
+                    />
+                  ))
+                ) : (
+                  <p className="text-center text-gray-600">
+                    You don't have any conversations yet.
+                  </p>
+                )}
+              </div>
             )}
           </div>
         )}
+
 
         {/* placeholders for tabs we haven't built yet */}
         {(activeTab === "Saved" || activeTab === "Done") && (
