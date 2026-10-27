@@ -31,6 +31,7 @@ export async function clientLoader({ request }) {
     title,
     image_url,
     commitment_type,
+    duration,
     locations!inner(name),
     organizations(name),
     opportunity_interests(
@@ -38,14 +39,14 @@ export async function clientLoader({ request }) {
     )
   `);
 
-  // only require a matching interest when the user selected interests
-  // this allows opportunities without interests in unfiltered searches
+  // only require matching interests when the user selected some
   if (interests.length > 0) {
     query = supabase.from("opportunities").select(`
       id,
       title,
       image_url,
       commitment_type,
+      duration,
       locations!inner(name),
       organizations(name),
       opportunity_interests!inner(
@@ -127,6 +128,15 @@ export default function ExploreResults({ loaderData }) {
       {opportunities.length === 0 && (
         <p className="mt-6 text-gray-600">No opportunities found.</p>
       )}
+
+      {/* show how many opportunities matched the search */}
+      {/* opportunities.length counts the results returned by supabase */}
+      {/* we use "in" instead of "nearby" because we filter by location name */}
+      <p className="mt-8 text-center text-lg text-gray-800">
+        {opportunities.length}{" "}
+        {opportunities.length === 1 ? "opportunity" : "opportunities"}{" "}
+        {location === "All locations" ? "found" : `nearby ${location}`}
+      </p>
 
       {/* display the opportunities received from supabase */}
       <div className="mt-6 space-y-4">
