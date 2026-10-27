@@ -5,6 +5,7 @@ import ApplicationCard from "../components/my-activity/ApplicationCard";
 import InboxCard from "../components/my-activity/InboxCard";
 import ConversationView from "../components/my-activity/ConversationView";
 import SavedCard from "../components/my-activity/SavedCard";
+import DoneCard from "../components/my-activity/DoneCard";
 import { supabase } from "../lib/supabase";
 
 // clientLoader fetches applications belonging to the logged-in volunteer
@@ -77,6 +78,32 @@ export async function clientLoader() {
   };
 
 }
+
+// dummy completed activities for the done tab
+// these are examples and are not stored in supabase
+const completedActivities = [
+  {
+    id: 1,
+    title: "Community Dinner",
+    organization: "Foodsharing Aarhus",
+    completedDate: "12 October 2026",
+    hours: 4,
+  },
+  {
+    id: 2,
+    title: "Dog Walking",
+    organization: "Dansk Hund Kærlighed",
+    completedDate: "5 October 2026",
+    hours: 3,
+  },
+  {
+    id: 3,
+    title: "Community Garden",
+    organization: "Green Aarhus",
+    completedDate: "20 September 2026",
+    hours: 5,
+  },
+];
 
 export default function MyActivity({ loaderData }) {
 
@@ -205,11 +232,16 @@ export default function MyActivity({ loaderData }) {
           </div>
         )}
 
-        {/* done tab will use dummy data later */}
+        {/* display completed volunteering activities using dummy data */}
         {activeTab === "Done" && (
-          <p className="mt-6 text-gray-600">
-            Done content will appear here.
-          </p>
+          <div className="mt-6 space-y-3">
+            {completedActivities.map((activity) => (
+              <DoneCard
+                key={activity.id}
+                activity={activity}
+              />
+            ))}
+          </div>
         )}
 
 
