@@ -2,6 +2,7 @@ import { useState } from "react";
 import { redirect } from "react-router";
 import ActivityTabs from "../components/my-activity/ActivityTabs";
 import ApplicationCard from "../components/my-activity/ApplicationCard";
+import InboxCard from "../components/my-activity/InboxCard";
 import { supabase } from "../lib/supabase";
 
 // clientLoader fetches applications belonging to the logged-in volunteer
@@ -17,7 +18,7 @@ export async function clientLoader() {
     throw redirect("/login");
   }
 
-  // fetch applications and their related opportunity information
+  // fetch applications, opportunity details, and their messages
   const { data, error } = await supabase
     .from("applications")
     .select(`
@@ -28,12 +29,22 @@ export async function clientLoader() {
         id,
         title,
         image_url,
-        organizations(name)
+        organizations(
+          name,
+          contact_name,
+          contact_avatar_url
+        )
+      ),
+      messages(
+        id,
+        content,
+        created_at
       )
     `)
+    
+
     .eq("profile_id", user.id)
     .order("created_at", { ascending: false });
-
   // show an error if the database request fails
   if (error) {
     throw new Error(error.message);
@@ -46,6 +57,29 @@ export async function clientLoader() {
 export default function MyActivity({ loaderData }) {
   // applications returned by clientLoader
   const applications = loaderData;
+
+
+  // turn applications with messages into inbox conversations
+  const conversations = applications
+    .filter((application) => application.messages?.length > 0)
+    .map((application) => {
+      // find the most recent message for this application
+      const latestMessage = [...application.messages].sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      )[0];
+
+      // get the organization's contact information
+      const organization = application.opportunities?.organizations;
+
+      return {
+        id: application.id,
+        contactName: organization?.contact_name || "Organizer",
+        organizationName: organization?.name || "Organization",
+        avatarUrl: organization?.contact_avatar_url,
+        lastMessage: latestMessage.content,
+      };
+    });
+
 
   // remember which tab the volunteer selected
   const [activeTab, setActiveTab] = useState("Applied");
@@ -83,12 +117,31 @@ export default function MyActivity({ loaderData }) {
           </div>
         )}
 
-        {/* temporary placeholders for the remaining tabs */}
-        {activeTab !== "Applied" && (
+        {/* inbox displays conversations connected to applications */}
+        {activeTab === "Inbox" && (
+          <div className="mt-6 space-y-3">
+            {conversations.length > 0 ? (
+              conversations.map((conversation) => (
+                <InboxCard
+                  key={conversation.id}
+                  conversation={conversation}
+                />
+              ))
+            ) : (
+              <p className="text-center text-gray-600">
+                You don't have any conversations yet.
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* placeholders for tabs we haven't built yet */}
+        {(activeTab === "Saved" || activeTab === "Done") && (
           <p className="mt-6 text-gray-600">
             {activeTab} content will appear here.
           </p>
         )}
+
 
       </div>
     </div>
