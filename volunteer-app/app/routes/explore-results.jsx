@@ -2,6 +2,7 @@ import { Link, useSearchParams } from "react-router";
 import { supabase } from "../lib/supabase";
 import OpportunityCard from "../components/OpportunityCard";
 import { ChevronLeft } from "lucide-react";
+import { useState } from "react";
 
 // meta sets the browser tab title and description
 export function meta() {
@@ -107,6 +108,18 @@ export default function ExploreResults({ loaderData }) {
   // store the opportunities in a variable for easier reading
   const { opportunities, savedIds } = loaderData;
 
+  // store the selected commitment filter
+  const [selectedType, setSelectedType] = useState(null);
+
+  // filter opportunities by the selected commitment type
+  const filteredOpportunities = selectedType
+    ? opportunities.filter(
+        (opportunity) =>
+          opportunity.commitment_type?.toLowerCase() ===
+          selectedType.toLowerCase(),
+      )
+    : opportunities;
+
   // useSearchParams allows us to read information from the url
   // for example: /explore/results?location=Aarhus
   const [searchParams] = useSearchParams();
@@ -138,6 +151,25 @@ export default function ExploreResults({ loaderData }) {
             {interests.length > 0 ? interests.join(", ") : "All interests"}
           </span>
         </Link>
+        {/* commitment type filters */}
+        <div className="mb-6 flex justify-center gap-3">
+          {["Flexible", "Short", "Regular"].map((type) => (
+            <button
+              key={type}
+              type="button"
+              onClick={() =>
+                setSelectedType(selectedType === type ? null : type)
+              }
+              className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
+                selectedType === type
+                  ? "bg-[#204F3D] text-white"
+                  : "bg-[#DDEBE1] text-[#204F3D]"
+              }`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
         {/* show the selected interests if the user chose any */}
         {interests.length > 0 && (
           <div className="mt-3">
@@ -174,7 +206,7 @@ export default function ExploreResults({ loaderData }) {
         {/* display the opportunities received from supabase */}
         <div className="mt-6 space-y-8">
           {/* create one reusable card for each opportunity */}
-          {opportunities.map((opportunity) => (
+          {filteredOpportunities.map((opportunity) => (
             <OpportunityCard
               key={opportunity.id}
               opportunity={opportunity}
