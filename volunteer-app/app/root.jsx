@@ -46,7 +46,7 @@ export default function App() {
   return (
     <>
       <Navigation />
-      <main className="pb-20 md:pb-0">
+      <main className="md:pb-0">
         <Outlet />
       </main>
     </>

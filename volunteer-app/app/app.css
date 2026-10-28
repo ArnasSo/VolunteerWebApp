@@ -1,8 +1,27 @@
 @import "tailwindcss";
-/* hi */
+
+@font-face {
+  font-family: "KBH";
+  src: url("/KBH-Demibold.otf") format("opentype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "KBH";
+  src: url("/KBH-Bold.otf") format("opentype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "KBH";
+  src: url("/KBH-Black.otf") format("opentype");
+  font-weight: 900;
+}
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-kbh: "KBH", sans-serif;
 }
 
 html,
