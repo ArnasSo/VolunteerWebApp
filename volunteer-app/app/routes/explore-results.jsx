@@ -121,13 +121,8 @@ export default function ExploreResults({ loaderData }) {
   const interests = searchParams.get("interests")?.split(",") || [];
 
   return (
-    <div className="mx-auto max-w-4xl p-4">
-      {/* page heading */}
-      <h1 className="text-2xl font-bold">Search Results</h1>
-
-      {/* show the location selected on the explore page */}
-      <p className="mt-2 text-gray-600">Location: {location}</p>
-
+    <div className="min-h-screen bg-[#f4f9f5] px-4 py-6">
+      <div className="mx-auto max-w-4xl">
       {/* show the selected interests if the user chose any */}
       {interests.length > 0 && (
         <div className="mt-3">
@@ -155,14 +150,14 @@ export default function ExploreResults({ loaderData }) {
       {/* show how many opportunities matched the search */}
       {/* opportunities.length counts the results returned by supabase */}
       {/* we use "in" instead of "nearby" because we filter by location name */}
-      <p className="mt-8 text-center text-lg text-gray-800">
-        {opportunities.length}{" "}
+      <p className="mt-4 text-center text-md text-gray-800 font-medium">
+        <span className="font-bold">{opportunities.length}{" "}</span>
         {opportunities.length === 1 ? "opportunity" : "opportunities"}{" "}
         {location === "All locations" ? "found" : `nearby ${location}`}
       </p>
 
       {/* display the opportunities received from supabase */}
-      <div className="mt-6 space-y-4">
+      <div className="mt-6 space-y-8">
         {/* create one reusable card for each opportunity */}
         {opportunities.map((opportunity) => (
           <OpportunityCard
@@ -171,6 +166,7 @@ export default function ExploreResults({ loaderData }) {
             isSaved={savedIds.includes(opportunity.id)}
           />
         ))}
+      </div>
       </div>
     </div>
   );

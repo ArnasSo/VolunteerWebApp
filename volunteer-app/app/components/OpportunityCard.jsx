@@ -82,23 +82,23 @@ export default function OpportunityCard({ opportunity, isSaved }) {
         )}
 
         {/* card content */}
-        <div className="p-5">
+        <div className="p-4">
           {/* opportunity title */}
-          <h2 className="text-2xl font-bold leading-tight text-gray-900">
+          <h2 className="text-xl font-bold leading-tight text-gray-900">
             {opportunity.title}
           </h2>
 
           {/* organization name */}
-          <p className="mt-3 text-lg text-gray-600">
+          <p className="mt-2 text-sm text-gray-600">
             {opportunity.organizations?.name}
           </p>
 
           {/* interest tags */}
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             {opportunity.opportunity_interests?.map((item) => (
               <span
                 key={item.interests.name}
-                className="rounded-full border border-green-700 px-3 py-1 text-sm text-gray-700"
+                className="rounded-full border border-[#1f4d37]/50 px-3 py-1 text-sm text-gray-700"
               >
                 {item.interests.name}
               </span>
@@ -106,7 +106,7 @@ export default function OpportunityCard({ opportunity, isSaved }) {
           </div>
 
           {/* opportunity details */}
-          <div className="mt-4 space-y-2 text-gray-800">
+          <div className="mt-3 text-sm space-y-2 text-[#15181e]">
             {/* commitment type */}
             <div className="flex items-center gap-3">
               {/* size controls the icon dimensions */}
