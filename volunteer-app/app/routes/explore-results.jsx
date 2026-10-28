@@ -135,7 +135,7 @@ export default function ExploreResults({ loaderData }) {
   const interests = searchParams.get("interests")?.split(",") || [];
 
   return (
-    <div className="min-h-screen bg-[#f4f9f5] px-4 py-6">
+    <div className="min-h-dvh bg-[#f4f9f5] px-4 pt-6 pb-24">
       <div className="mx-auto max-w-4xl">
         {/* search opportunities */}
         {/* selected search filters */}
@@ -189,17 +189,14 @@ export default function ExploreResults({ loaderData }) {
           </div>
         )}
 
-        {/* show a message if there are no opportunities */}
-        {opportunities.length === 0 && (
-          <p className="mt-6 text-gray-600">No opportunities found.</p>
-        )}
-
         {/* show how many opportunities matched the search */}
         {/* opportunities.length counts the results returned by supabase */}
         {/* we use "in" instead of "nearby" because we filter by location name */}
         <p className="mt-4 text-center text-md text-gray-800 font-medium">
-          <span className="font-bold">{opportunities.length} </span>
-          {opportunities.length === 1 ? "opportunity" : "opportunities"}{" "}
+          <span className="font-bold">{filteredOpportunities.length} </span>
+          {filteredOpportunities.length === 1
+            ? "opportunity"
+            : "opportunities"}{" "}
           {location === "All locations" ? "found" : `nearby ${location}`}
         </p>
 
