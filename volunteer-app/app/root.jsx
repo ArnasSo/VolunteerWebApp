@@ -32,6 +32,8 @@ export function Layout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+
+        <link rel="icon" type="image/svg+xml" href="/volunteer-hub-logo.svg" />
       </head>
       <body>
         {children}
