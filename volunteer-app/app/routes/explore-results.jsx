@@ -1,6 +1,7 @@
-import { useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { supabase } from "../lib/supabase";
 import OpportunityCard from "../components/OpportunityCard";
+import { ChevronLeft } from "lucide-react";
 
 // meta sets the browser tab title and description
 export function meta() {
@@ -123,50 +124,64 @@ export default function ExploreResults({ loaderData }) {
   return (
     <div className="min-h-screen bg-[#f4f9f5] px-4 py-6">
       <div className="mx-auto max-w-4xl">
-      {/* show the selected interests if the user chose any */}
-      {interests.length > 0 && (
-        <div className="mt-3">
-          <p className="font-medium">Selected interests:</p>
+        {/* search opportunities */}
+        {/* selected search filters */}
+        <Link
+          to="/explore"
+          className="mb-6 flex items-center gap-4 rounded-xl border-2 border-[#F5BE45] bg-white px-4 py-4"
+        >
+          <ChevronLeft size={24} className="shrink-0 text-gray-900" />
 
-          {/* map creates one tag for each selected interest */}
-          <div className="mt-2 flex flex-wrap gap-2">
-            {interests.map((interest) => (
-              <span
-                key={interest}
-                className="rounded-full bg-green-100 px-3 py-1 text-sm text-green-800"
-              >
-                {interest}
-              </span>
-            ))}
+          <span className="truncate text-sm text-gray-700">{location}</span>
+
+          <span className="min-w-0 flex-1 truncate text-sm text-gray-700">
+            {interests.length > 0 ? interests.join(", ") : "All interests"}
+          </span>
+        </Link>
+        {/* show the selected interests if the user chose any */}
+        {interests.length > 0 && (
+          <div className="mt-3">
+            <p className="font-medium">Selected interests:</p>
+
+            {/* map creates one tag for each selected interest */}
+            <div className="mt-2 flex flex-wrap gap-2">
+              {interests.map((interest) => (
+                <span
+                  key={interest}
+                  className="rounded-full bg-green-100 px-3 py-1 text-sm text-green-800"
+                >
+                  {interest}
+                </span>
+              ))}
+            </div>
           </div>
+        )}
+
+        {/* show a message if there are no opportunities */}
+        {opportunities.length === 0 && (
+          <p className="mt-6 text-gray-600">No opportunities found.</p>
+        )}
+
+        {/* show how many opportunities matched the search */}
+        {/* opportunities.length counts the results returned by supabase */}
+        {/* we use "in" instead of "nearby" because we filter by location name */}
+        <p className="mt-4 text-center text-md text-gray-800 font-medium">
+          <span className="font-bold">{opportunities.length} </span>
+          {opportunities.length === 1 ? "opportunity" : "opportunities"}{" "}
+          {location === "All locations" ? "found" : `nearby ${location}`}
+        </p>
+
+        {/* display the opportunities received from supabase */}
+        <div className="mt-6 space-y-8">
+          {/* create one reusable card for each opportunity */}
+          {opportunities.map((opportunity) => (
+            <OpportunityCard
+              key={opportunity.id}
+              opportunity={opportunity}
+              isSaved={savedIds.includes(opportunity.id)}
+            />
+          ))}
         </div>
-      )}
-
-      {/* show a message if there are no opportunities */}
-      {opportunities.length === 0 && (
-        <p className="mt-6 text-gray-600">No opportunities found.</p>
-      )}
-
-      {/* show how many opportunities matched the search */}
-      {/* opportunities.length counts the results returned by supabase */}
-      {/* we use "in" instead of "nearby" because we filter by location name */}
-      <p className="mt-4 text-center text-md text-gray-800 font-medium">
-        <span className="font-bold">{opportunities.length}{" "}</span>
-        {opportunities.length === 1 ? "opportunity" : "opportunities"}{" "}
-        {location === "All locations" ? "found" : `nearby ${location}`}
-      </p>
-
-      {/* display the opportunities received from supabase */}
-      <div className="mt-6 space-y-8">
-        {/* create one reusable card for each opportunity */}
-        {opportunities.map((opportunity) => (
-          <OpportunityCard
-            key={opportunity.id}
-            opportunity={opportunity}
-            isSaved={savedIds.includes(opportunity.id)}
-          />
-        ))}
-      </div>
       </div>
     </div>
   );
