@@ -17,4 +17,7 @@ export default [
   // login and registration
   route("login", "routes/login.jsx"),
   route("signup", "routes/signup.jsx"),
+
+  //articles
+  route("articles/:articlesId", "routes/articles-details.jsx" )
 ];
