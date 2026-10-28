@@ -56,9 +56,21 @@ export default function Navigation() {
     // bottom navigation on mobile, top navigation on desktop
     <nav
       aria-label="Main navigation"
-      className="fixed bottom-0 left-0 z-50 flex w-full justify-around border-t border-gray-200 bg-white p-4 md:static md:border-t-0 md:border-b"
+      className="fixed bottom-0 left-0 z-50 flex w-full justify-around border-t border-gray-200 bg-[#F3F8F3] p-4 md:static md:border-t-0 md:border-b items-center md:justify-end md:gap-8 md:px-8 md:py-3"
     >
+      {/* Logo and name - desktop only */}
+<div className="hidden items-center gap-2 md:mr-auto md:flex">
+  <img
+    src="/volunteer-hub-logo.svg"
+    alt="Volunteer Hub logo"
+    className="h-6 w-auto"
+  />
+  <h1 className="text-lg font-semibold text-[#173F30]">
+    Volunteer Hub
+  </h1>
+</div>
       {/* wait until the login status is known before showing links */}
+      
       {isLoggedIn !== null &&
         links.map((link) => (
           <NavLink
@@ -67,7 +79,11 @@ export default function Navigation() {
             end
             // highlight the page we're currently viewing
             className={({ isActive }) =>
-              isActive ? "font-semibold text-green-700" : "text-gray-500"
+              link.label === "Login"
+              ? "rounded-md border border-[#DDEBDE] bg-white px-3 py-2 text-sm font-semibold text-[#1F4D37]"
+              : isActive
+              ? "text-sm font-semibold text-[#F26B4D]"
+              : "text-sm text-[#6A6C70]"
             }
           >
             {link.label}
