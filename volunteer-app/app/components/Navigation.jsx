@@ -65,7 +65,7 @@ export default function Navigation() {
     alt="Volunteer Hub logo"
     className="h-6 w-auto"
   />
-  <h1 className="text-lg font-semibold text-[#173F30]">
+  <h1 className="font-kbh text-lg font-semibold text-[#173F30]">
     Volunteer Hub
   </h1>
 </div>
@@ -80,10 +80,10 @@ export default function Navigation() {
             // highlight the page we're currently viewing
             className={({ isActive }) =>
               link.label === "Login"
-              ? "rounded-md border border-[#DDEBDE] bg-white px-3 py-2 text-sm font-semibold text-[#1F4D37]"
+              ? "font-kbh rounded-md border border-[#DDEBDE] bg-white px-3 py-2 text-sm font-semibold text-[#1F4D37]"
               : isActive
-              ? "text-sm font-semibold text-[#F26B4D]"
-              : "text-sm text-[#6A6C70]"
+              ? "font-kbh text-sm font-semibold text-[#F26B4D]"
+              : "font-kbh text-sm text-[#6A6C70]"
             }
           >
             {link.label}

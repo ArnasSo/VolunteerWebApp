@@ -94,7 +94,7 @@ return (
     {/* volunteer hub heading */}
     <div className="flex gap-4 items-center justify-center">
       <img src="/volunteer-hub-logo.svg" alt="volunteer hub log" className="mb-6 max-w-24 max-h-24"/>
-      <h1 className="mb-6 text-center text-2xl font-[600] text-[#173F30]">
+      <h1 className="font-kbh mb-6 text-center text-2xl font-[600] text-[#173F30]">
       Volunteer Hub
       </h1>
     </div>
