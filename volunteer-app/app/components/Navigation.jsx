@@ -36,17 +36,49 @@ export default function Navigation() {
 
   // navigation links available to guests
   const guestLinks = [
-    { label: "Home", path: "/" },
-    { label: "Explore", path: "/explore" },
-    { label: "Login", path: "/login" },
+    {
+      label: "Home",
+      path: "/",
+      icon: "/images/tabler_home.svg",
+    },
+    {
+      label: "Explore",
+      mobileLabel: "Opportunity",
+      path: "/explore",
+      icon: "/images/tabler_search.svg",
+    },
+    {
+      label: "Login",
+      mobileLabel: "Log in",
+      path: "/login",
+      icon: "/images/tabler_user.svg",
+    },
   ];
 
   // navigation links available to logged-in volunteers
   const userLinks = [
-    { label: "Home", path: "/" },
-    { label: "Explore", path: "/explore" },
-    { label: "My Activity", path: "/my-activity" },
-    { label: "Profile", path: "/profile" },
+    {
+      label: "Home",
+      path: "/",
+      icon: "/images/tabler_home.svg",
+    },
+    {
+      label: "Explore",
+      mobileLabel: "Opportunity",
+      path: "/explore",
+      icon: "/images/tabler_search.svg",
+    },
+    {
+      label: "My Activity",
+      mobileLabel: "My activity",
+      path: "/my-activity",
+      icon: "/images/tabler_heart-handshake.svg",
+    },
+    {
+      label: "Profile",
+      path: "/profile",
+      icon: "/images/tabler_user.svg",
+    },
   ];
 
   // choose the correct links based on login status
@@ -56,37 +88,63 @@ export default function Navigation() {
     // bottom navigation on mobile, top navigation on desktop
     <nav
       aria-label="Main navigation"
-      className="fixed bottom-0 left-0 z-50 flex w-full justify-around border-t border-gray-200 bg-[#F3F8F3] p-4 md:static md:border-t-0 md:border-b items-center md:justify-end md:gap-8 md:px-8 md:py-3"
+      className={`fixed bottom-0 left-0 z-50 flex h-[84px] w-full border-t-[1.5px] border-[#DDEBDE] bg-[#F3F8F3] px-2
+  ${
+    isLoggedIn
+      ? "items-center justify-center pb-[19.5px]"
+      : "items-start justify-between"
+  }
+  md:static md:h-auto md:items-center md:justify-end md:gap-8 md:border-t-0 md:border-b md:px-8 md:py-3`}
     >
       {/* Logo and name - desktop only */}
-<div className="hidden items-center gap-2 md:mr-auto md:flex">
-  <img
-    src="/volunteer-hub-logo.svg"
-    alt="Volunteer Hub logo"
-    className="h-6 w-auto"
-  />
-  <h1 className="font-kbh text-lg font-semibold text-[#173F30]">
-    Volunteer Hub
-  </h1>
-</div>
+      <div className="hidden items-center gap-2 md:mr-auto md:flex">
+        <img
+          src="/volunteer-hub-logo.svg"
+          alt="Volunteer Hub logo"
+          className="h-6 w-auto"
+        />
+        <h1 className="font-kbh text-lg font-semibold text-[#173F30]">
+          Volunteer Hub
+        </h1>
+      </div>
       {/* wait until the login status is known before showing links */}
-      
+
       {isLoggedIn !== null &&
         links.map((link) => (
           <NavLink
             key={link.path}
             to={link.path}
             end
-            // highlight the page we're currently viewing
             className={({ isActive }) =>
-              link.label === "Login"
-              ? "font-kbh rounded-md border border-[#DDEBDE] bg-white px-3 py-2 text-sm font-semibold text-[#1F4D37]"
-              : isActive
-              ? "font-kbh text-sm font-semibold text-[#F26B4D]"
-              : "font-kbh text-sm text-[#6A6C70]"
+              `
+flex flex-col items-center gap-1 whitespace-nowrap text-center font-[Inter] text-xs font-normal md:font-kbh md:text-sm
+
+        ${isLoggedIn ? "flex-1" : "pt-3"}
+        ${isActive ? "font-semibold text-[#F26B4D]" : "text-[#2E6B4E]"}
+        md:flex-none md:flex-row md:pt-0
+        ${
+          link.label === "Login"
+            ? "md:rounded-md md:border md:border-[#DDEBDE] md:bg-white md:px-3 md:py-2 md:font-semibold md:text-[#1F4D37]"
+            : !isActive
+              ? "md:text-[#6A6C70]"
+              : ""
+        }`
             }
           >
-            {link.label}
+            {/* Mobile icon */}
+            <span
+              className="h-8 w-8 shrink-0 bg-current md:hidden"
+              style={{
+                WebkitMask: `url("${link.icon}") center / contain no-repeat`,
+                mask: `url("${link.icon}") center / contain no-repeat`,
+              }}
+            />
+
+            {/* Mobile text */}
+            <span className="md:hidden">{link.mobileLabel || link.label}</span>
+
+            {/* Desktop text */}
+            <span className="hidden md:inline">{link.label}</span>
           </NavLink>
         ))}
     </nav>

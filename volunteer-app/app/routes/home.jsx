@@ -24,7 +24,7 @@ export async function clientLoader() {
 export default function Home({ loaderData }) {
   const { articles } = loaderData;
   return (
-    <div className="p-4">
+    <div className="px-6">
       {/* temporary heading until we build the home page from figma */}
       <div className="flex gap-4 items-center justify-center">
         <img
@@ -36,16 +36,17 @@ export default function Home({ loaderData }) {
           Volunteer Hub
         </h1>
       </div>
-
-      {articles.map((article) => (
-        <ArticleCard
-          key={article.id}
-          image={article.image_url}
-          author={article.author}
-          title={article.title}
-          tags={article.tags || []}
-        />
-      ))}
+      <div className="flex flex-col items-start gap-9">
+        {articles.map((article) => (
+          <ArticleCard
+            key={article.id}
+            image={article.image_url}
+            author={article.author}
+            title={article.title}
+            tags={article.tags || []}
+          />
+        ))}
+      </div>
     </div>
   );
 }
