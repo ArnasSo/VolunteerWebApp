@@ -92,10 +92,12 @@ return (
   <div className="mx-auto max-w-xl">
 
     {/* volunteer hub heading */}
-    <h1 className="mb-10 text-center text-3xl font-bold text-[#173F30]">
+    <div className="flex gap-4 items-center justify-center">
+      <img src="/volunteer-hub-logo.svg" alt="volunteer hub log" className="mb-6 max-w-24 max-h-24"/>
+      <h1 className="mb-6 text-center text-2xl font-[600] text-[#173F30]">
       Volunteer Hub
-    </h1>
-
+      </h1>
+    </div>
     {/* search filter container */}
     <div className="overflow-hidden rounded-2xl border-[4px] border-[#F8C84B] bg-white">
 
