@@ -168,7 +168,7 @@ export default function Explore() {
             <ExploreCard
               title="Meet new people while doing good"
               category="Social Causes"
-              image="public/images/opportunity-newcomers-conversation.jpg"
+              image="/images/opportunity-newcomers-conversation.jpg"
             />
           </div>
 
@@ -176,7 +176,7 @@ export default function Explore() {
             <ExploreCard
               title="Good food tastes better together"
               category="Community Dinner"
-              image="public/images/opportunity-community-dinner.jpg"
+              image="/images/opportunity-community-dinner.jpg"
             />
           </div>
         </Section>
@@ -186,7 +186,7 @@ export default function Explore() {
           <div className="w-[250px] shrink-0 snap-start">
             <SmallCard
               title="Join our clean-up walk at Brabrand lake!"
-              image="public/images/opportunity-brabrandlake-cleanup.jpg"
+              image="/images/opportunity-brabrandlake-cleanup.jpg"
               location="Brabrand, Aarhus"
             />
           </div>
@@ -194,7 +194,7 @@ export default function Explore() {
           <div className="w-[250px] shrink-0 snap-start">
             <SmallCard
               title="Weekend yoga volunteers wanted!"
-              image="public/images/opportunity-fun-movement.jpg"
+              image="/images/opportunity-fun-movement.jpg"
               location="Nørrebro, Copenhagen"
             />
           </div>
