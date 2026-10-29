@@ -1,4 +1,5 @@
 import ArticleCard from "../components/ArticleCard";
+import Statistic from "../components/Statistic";
 import { supabase } from "../lib/supabase";
 import { Link } from "react-router";
 
@@ -64,18 +65,9 @@ export default function Home({ loaderData }) {
       <section className="flex w-full flex-col items-center bg-[#F3F8F3] px-6 py-10">
         {/* Statistics */}
         <div className="inline-flex items-center gap-9">
-          {["Opportunities", "Organizations", "Communities"].map((label) => (
-            <div key={label} className="flex flex-col items-center">
-              <div className="flex items-center gap-[3px] py-2">
-                <span className="font-[Inter] text-[26px] font-semibold text-[#21272A]">
-                  00+
-                </span>
-              </div>
-              <p className="font-[Inter] text-[10px] font-normal text-[#21272A]">
-                {label}
-              </p>
-            </div>
-          ))}
+          <Statistic value="300+" label="Opportunities" />
+          <Statistic value="90+" label="Organizations" />
+          <Statistic value="60+" label="Communities" />
         </div>
 
         {/* CTA Button */}
