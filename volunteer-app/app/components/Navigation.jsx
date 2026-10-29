@@ -16,7 +16,7 @@ const guestLinks = [
     icon: "/images/tabler_search.svg",
   },
   {
-    label: "Login",
+    label: "Log in",
     mobileLabel: "Log in",
     path: "/login",
     icon: "/images/tabler_user.svg",
@@ -120,15 +120,15 @@ export default function Navigation() {
   text-center font-[Inter] text-xs font-normal
   md:font-kbh md:text-sm
 
-  ${isLoggedIn ? "flex-1" : "pt-3"}
+  ${isLoggedIn ? "flex-1" : "pt-3 md:pt-0"}
 
   ${isActive ? "font-semibold text-[#F26B4D]" : "text-[#2E6B4E]"}
 
   md:flex-none md:flex-row md:pt-0
 
   ${
-    link.label === "Login"
-      ? "md:rounded-md md:border md:border-[#DDEBDE] md:bg-white md:px-3 md:py-2 md:font-semibold md:text-[#1F4D37]"
+    link.label === "Log in"
+      ? "md:pt-2 md:rounded-xl md:justify-center border md:border-[#DDEBDE] md:bg-white md:px-3 md:py-2 md:font-semibold md:text-[#1F4D37]"
       : !isActive
         ? "md:text-[#6A6C70]"
         : ""
