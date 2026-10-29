@@ -228,24 +228,24 @@ export default function MyActivity({ loaderData }) {
                 <DoneCard key={activity.id} activity={activity} />
               ))}
             </div>
+            {/* Volunteering Overview */}
+            <h2 className="mt-9 mb-3 text-[18px] font-semibold text-[#1F4D37]">
+              Volunteering Overview
+            </h2>
+
+            <div className="flex flex-col items-center gap-3 rounded-[18px] bg-white px-5 py-5 text-center">
+              <p className="text-[14px] text-[#404247]">
+                Hours spent volunteering this month
+              </p>
+
+              <p className="text-[18px] font-semibold text-[#15181E]">12 h</p>
+
+              <p className="text-[12px] text-[#6A6C70] underline">
+                View full overview
+              </p>
+            </div>
           </div>
         )}
-        {/* Volunteering Overview */}
-        <h2 className="mt-9 mb-3 text-[18px] font-semibold text-[#1F4D37]">
-          Volunteering Overview
-        </h2>
-
-        <div className="flex flex-col items-center gap-3 rounded-[18px] bg-white px-5 py-5 text-center">
-          <p className="text-[14px] text-[#404247]">
-            Hours spent volunteering this month
-          </p>
-
-          <p className="text-[18px] font-semibold text-[#15181E]">12 h</p>
-
-          <p className="text-[12px] text-[#6A6C70] underline">
-            View full overview
-          </p>
-        </div>
       </div>
     </div>
   );
