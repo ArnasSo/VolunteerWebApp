@@ -24,7 +24,8 @@ export async function clientLoader() {
   // fetch applications, opportunity details, and their messages
   const { data, error } = await supabase
     .from("applications")
-    .select(`
+    .select(
+      `
       id,
       status,
       created_at,
@@ -43,7 +44,8 @@ export async function clientLoader() {
         content,
         created_at
       )
-    `)
+    `,
+    )
 
     .eq("profile_id", user.id)
     .order("created_at", { ascending: false });
@@ -55,7 +57,8 @@ export async function clientLoader() {
   // fetch opportunities saved by the logged-in volunteer
   const { data: saved, error: savedError } = await supabase
     .from("saved_opportunities")
-    .select(`
+    .select(
+      `
     opportunity_id,
     opportunities(
       id,
@@ -63,7 +66,8 @@ export async function clientLoader() {
       image_url,
       organizations(name)
     )
-  `)
+  `,
+    )
     .eq("profile_id", user.id)
     .order("created_at", { ascending: false });
 
@@ -76,7 +80,6 @@ export async function clientLoader() {
     applications: data || [],
     saved: saved || [],
   };
-
 }
 
 // dummy completed activities for the done tab
@@ -84,32 +87,21 @@ export async function clientLoader() {
 const completedActivities = [
   {
     id: 1,
-    title: "Community Dinner",
-    organization: "Foodsharing Aarhus",
-    completedDate: "12 October 2026",
-    hours: 4,
+    title: "Make newcomers feel at home through conversation",
+    organization: "Røde Kors",
+    image: "/images/done1.png",
   },
   {
     id: 2,
-    title: "Dog Walking",
-    organization: "Dansk Hund Kærlighed",
-    completedDate: "5 October 2026",
-    hours: 3,
-  },
-  {
-    id: 3,
-    title: "Community Garden",
-    organization: "Green Aarhus",
-    completedDate: "20 September 2026",
-    hours: 5,
+    title: "Help care for cats while their owners recover",
+    organization: "Kattens Værn",
+    image: "/images/done2.png",
   },
 ];
 
 export default function MyActivity({ loaderData }) {
-
   // get applications and saved opportunities from clientLoader
   const { applications, saved } = loaderData;
-
 
   // turn applications with messages into inbox conversations
   const conversations = applications
@@ -117,7 +109,7 @@ export default function MyActivity({ loaderData }) {
     .map((application) => {
       // find the most recent message for this application
       const latestMessage = [...application.messages].sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        (a, b) => new Date(b.created_at) - new Date(a.created_at),
       )[0];
 
       // get the organization's contact information
@@ -132,11 +124,10 @@ export default function MyActivity({ loaderData }) {
 
         // messages are displayed in chronological order
         messages: [...application.messages].sort(
-          (a, b) => new Date(a.created_at) - new Date(b.created_at)
+          (a, b) => new Date(a.created_at) - new Date(b.created_at),
         ),
       };
     });
-
 
   // remember which tab the volunteer selected
   const [activeTab, setActiveTab] = useState("Applied");
@@ -149,17 +140,11 @@ export default function MyActivity({ loaderData }) {
   return (
     <div className="min-h-screen bg-[#F4F9F5] px-6 py-10 text-gray-900">
       <div className="mx-auto max-w-3xl">
-
         {/* page heading */}
-        <h1 className="mb-6 text-2xl font-bold">
-          My Activity
-        </h1>
+        <h1 className="mb-6 text-2xl font-bold">My Activity</h1>
 
         {/* reusable navigation tabs */}
-        <ActivityTabs
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-        />
+        <ActivityTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
         {/* display the volunteer's submitted applications */}
         {activeTab === "Applied" && (
@@ -186,7 +171,8 @@ export default function MyActivity({ loaderData }) {
               <ConversationView
                 conversation={
                   conversations.find(
-                    (conversation) => conversation.id === selectedConversation.id
+                    (conversation) =>
+                      conversation.id === selectedConversation.id,
                   ) || selectedConversation
                 }
                 onBack={() => setSelectedConversation(null)}
@@ -212,8 +198,6 @@ export default function MyActivity({ loaderData }) {
           </div>
         )}
 
-
-
         {/* display opportunities saved by the volunteer */}
         {activeTab === "Saved" && (
           <div className="mt-6 space-y-3">
@@ -234,18 +218,34 @@ export default function MyActivity({ loaderData }) {
 
         {/* display completed volunteering activities using dummy data */}
         {activeTab === "Done" && (
-          <div className="mt-6 space-y-3">
-            {completedActivities.map((activity) => (
-              <DoneCard
-                key={activity.id}
-                activity={activity}
-              />
-            ))}
+          <div className="mt-6">
+            {/* Completed Activities */}
+            <h2 className="mb-3 text-[18px] font-semibold text-[#1F4D37]">
+              Activities you've done
+            </h2>
+            <div className="flex flex-col gap-3">
+              {completedActivities.map((activity) => (
+                <DoneCard key={activity.id} activity={activity} />
+              ))}
+            </div>
           </div>
         )}
+        {/* Volunteering Overview */}
+        <h2 className="mt-9 mb-3 text-[18px] font-semibold text-[#1F4D37]">
+          Volunteering Overview
+        </h2>
 
+        <div className="flex flex-col items-center gap-3 rounded-[18px] bg-white px-5 py-5 text-center">
+          <p className="text-[14px] text-[#404247]">
+            Hours spent volunteering this month
+          </p>
 
+          <p className="text-[18px] font-semibold text-[#15181E]">12 h</p>
 
+          <p className="text-[12px] text-[#6A6C70] underline">
+            View full overview
+          </p>
+        </div>
       </div>
     </div>
   );
