@@ -1,8 +1,6 @@
-import { Link } from 'react-router';
 import { MapPin } from "lucide-react";
 
 export default function SmallCard({
-    id,
     title,
     image,
     location,
@@ -10,9 +8,7 @@ export default function SmallCard({
     return (
         <div className="relative w-full overflow-hidden rounded-[28px] bg-white shadow-sm">
 
-            {/* link to opportunity details */}
-            <Link
-                to={`/opportunities/${id}`}
+            <div
                 className="block"
             >
                 {/* opportunity image */}
@@ -42,7 +38,7 @@ export default function SmallCard({
                         </span>
                     </div>
                 </div>
-            </Link>
+            </div>
         </div>
     );
 }

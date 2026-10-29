@@ -1,14 +1,10 @@
-import { Link } from 'react-router';
-
 export default function ExploreCard({
     title,
     category,
     image,
-    to = "#",
 }) {
     return (
-        <Link
-            to={to}
+        <div
             className="group relative block h-[280px] w-full overflow-hidden rounded-[20px]"
         >
             {/* Background image */}
@@ -33,6 +29,6 @@ export default function ExploreCard({
                     {category}
                 </p>
             </div>
-        </Link>
+        </div>
     );
 }
