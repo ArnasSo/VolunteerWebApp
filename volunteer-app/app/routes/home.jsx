@@ -1,5 +1,6 @@
 import ArticleCard from "../components/ArticleCard";
 import { supabase } from "../lib/supabase";
+import { Link } from "react-router";
 
 export function meta() {
   return [
@@ -56,6 +57,44 @@ export default function Home({ loaderData }) {
         <p className="w-full max-w-[300px] text-center font-[Inter] text-[14px] font-normal text-white lg:max-w-[568px] lg:text-[24px] lg:font-medium">
           Discover volunteering opportunities that fit your interests, schedule,
           and location.
+        </p>
+      </section>
+
+      {/* Statistics & CTA Section */}
+      <section className="flex w-full flex-col items-center bg-[#F3F8F3] px-6 py-10">
+        {/* Statistics */}
+        <div className="inline-flex items-center gap-9">
+          {["Opportunities", "Organizations", "Communities"].map((label) => (
+            <div key={label} className="flex flex-col items-center">
+              <div className="flex items-center gap-[3px] py-2">
+                <span className="font-[Inter] text-[26px] font-semibold text-[#21272A]">
+                  00+
+                </span>
+              </div>
+              <p className="font-[Inter] text-[10px] font-normal text-[#21272A]">
+                {label}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA Button */}
+        <Link
+          to="/explore"
+          className="mt-7 inline-flex h-[55px] w-full max-w-[340px] items-center justify-center rounded-full px-9 font-[Inter] text-[20px] font-semibold text-white"
+          style={{
+            background: "linear-gradient(91deg, #F26B4D 3.03%, #D65A3F 97.95%)",
+          }}
+        >
+          <span style={{ WebkitTextStroke: "0.2px rgba(0,0,0,0.3)" }}>
+            Start Exploring
+          </span>
+        </Link>
+
+        {/* Description */}
+        <p className="mt-4 w-[223px] max-w-full text-center font-[Inter] text-[10px] font-normal text-[#6A6C70]">
+          We can help you find the perfect volunteer opportunities that match
+          your interests and lifestyle.
         </p>
       </section>
 
