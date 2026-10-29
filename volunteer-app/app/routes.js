@@ -19,5 +19,8 @@ export default [
   route("signup", "routes/signup.jsx"),
 
   //articles
-  route("articles/:articlesId", "routes/articles-details.jsx" )
+  route("articles/:articlesId", "routes/articles-details.jsx" ),
+
+  //404 page
+  route("*", "routes/not-found.jsx"),
 ];
