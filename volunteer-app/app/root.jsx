@@ -48,7 +48,7 @@ export default function App() {
   return (
     <>
       <Navigation />
-      <main className="md:pb-0">
+      <main className="bg-[#F3F8F3] pb-24 md:pb-0">
         <Outlet />
       </main>
     </>

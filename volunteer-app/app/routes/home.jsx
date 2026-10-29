@@ -26,9 +26,12 @@ export async function clientLoader() {
 export default function Home({ loaderData }) {
   const { articles } = loaderData;
   return (
-    <div className="w-full bg-[#F3F8F3] pt-5 pb-24 md:pb-0">
+    <div className="w-full bg-[#F3F8F3]">
       {/* temporary heading until we build the home page from figma */}
-      <div className="flex items-center justify-center gap-4 px-6 md:hidden">
+      <div
+        className="flex items-center justify-center gap-6
+       pt-6 px-6 md:hidden"
+      >
         <img
           src="/volunteer-hub-logo.svg"
           alt="volunteer hub log"
