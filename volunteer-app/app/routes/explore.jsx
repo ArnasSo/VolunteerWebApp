@@ -175,15 +175,15 @@ return (
           <ExploreCard
             title="Meet new people while doing good"
             category="Social Causes"
-            image="/images/social-causes.jpg"
+            image="public/images/opportunity-newcomers-conversation.jpg"
           />
         </div>
 
         <div className="w-[280px] shrink-0">
           <ExploreCard
             title="Good food tastes better together"
-            category="Community"
-            image="/images/community.jpg"
+            category="Community Dinner"
+            image="public/images/opportunity-community-dinner.jpg"
           />
         </div>
       </Section>
@@ -193,7 +193,7 @@ return (
         <div className="w-[300px] shrink-0">
           <SmallCard
             title="Join our clean-up walk at Brabrand lake!"
-            image="/images/cleanup-walk.jpg"
+            image="public/images/opportunity-brabrandlake-cleanup.jpg"
             location="Brabrand, Aarhus"
           />
         </div>
@@ -201,7 +201,7 @@ return (
         <div className="w-[300px] shrink-0">
           <SmallCard
             title="Weekend yoga volunteers wanted!"
-            image="/images/weekend-yoga.jpg"
+            image="public/images/opportunity-fun-movement.jpg"
             location="Nørrebro, Copenhagen"
           />
         </div>
