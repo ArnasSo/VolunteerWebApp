@@ -92,7 +92,7 @@ export default function Navigation() {
   ${
     isLoggedIn
       ? "items-center justify-center pb-[19.5px]"
-      : "items-start justify-between"
+      : "items-start justify-between px-6"
   }
   md:static md:h-auto md:items-center md:justify-end md:gap-8 md:border-t-0 md:border-b md:px-8 md:py-3`}
     >
