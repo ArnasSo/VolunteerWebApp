@@ -64,9 +64,9 @@ export default function Home({ loaderData }) {
       </section>
 
       {/* Statistics & CTA Section */}
-      <section className="flex w-full flex-col items-center bg-[#F3F8F3] px-6 py-10">
+      <section className="flex w-full flex-col items-center bg-[#F3F8F3] lg:gap-3 px-6 pt-12 pb-2 lg:py-14 lg:pb-6">
         {/* Statistics */}
-        <div className="inline-flex items-center gap-9">
+        <div className="inline-flex items-center gap-9 lg:gap-16">
           <Statistic value="300+" label="Opportunities" />
           <Statistic value="90+" label="Organizations" />
           <Statistic value="60+" label="Communities" />
@@ -86,7 +86,7 @@ export default function Home({ loaderData }) {
         </Link>
 
         {/* Description */}
-        <p className="mt-4 w-[223px] max-w-full text-center font-[Inter] text-[10px] font-normal text-[#6A6C70]">
+        <p className="mt-4 w-[223px] max-w-full text-center font-[Inter] text-[12px] font-normal text-[#6A6C70] lg:mt-4 lg:w-[420px] lg:text-[12px]">
           We can help you find the perfect volunteer opportunities that match
           your interests and lifestyle.
         </p>
