@@ -6,6 +6,7 @@ import InboxCard from "../components/my-activity/InboxCard";
 import ConversationView from "../components/my-activity/ConversationView";
 import SavedCard from "../components/my-activity/SavedCard";
 import DoneCard from "../components/my-activity/DoneCard";
+import EmptyState from "../components/EmptyState";
 import { supabase } from "../lib/supabase";
 
 // clientLoader fetches applications belonging to the logged-in volunteer
@@ -157,9 +158,11 @@ export default function MyActivity({ loaderData }) {
                 />
               ))
             ) : (
-              <p className="text-center text-gray-600">
-                You haven't applied for any opportunities yet.
-              </p>
+              <EmptyState
+                icon="/tabler_clipboard-list.svg"
+                title="No applications yet"
+                description="When you apply for a volunteering opportunity, you can track your application status here."
+              />
             )}
           </div>
         )}
@@ -189,9 +192,11 @@ export default function MyActivity({ loaderData }) {
                     />
                   ))
                 ) : (
-                  <p className="text-center text-gray-600">
-                    You don't have any conversations yet.
-                  </p>
+                  <EmptyState
+                    icon="/tabler_message-circle.svg"
+                    title="No conversations yet"
+                    description="Your conversations with volunteer coordinators will appear here."
+                  />
                 )}
               </div>
             )}
@@ -209,9 +214,13 @@ export default function MyActivity({ loaderData }) {
                 />
               ))
             ) : (
-              <p className="text-center text-gray-600">
-                You haven't saved any opportunities yet.
-              </p>
+              <EmptyState
+                icon="/tabler_bookmark.svg"
+                title="No saved opportunities yet"
+                description="Save volunteering opportunities you're interested in and find them here later.
+
+"
+              />
             )}
           </div>
         )}
