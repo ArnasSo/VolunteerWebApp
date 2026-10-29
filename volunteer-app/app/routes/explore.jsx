@@ -6,6 +6,9 @@ Filter,
 ChevronDown,
 X,
 } from "lucide-react";
+import Section from "../components/Section";
+import ExploreCard from "../components/ExploreCard";
+import SmallCard from "../components/SmallCard";
 
 // meta sets the browser tab title and page description
 export function meta() {
@@ -166,6 +169,43 @@ return (
         Search
       </button>
     </div>
+    {/* Section with ExploreCards */}
+      <Section title="Find something you love doing">
+        <div className=" w-[280px] shrink-0">
+          <ExploreCard
+            title="Meet new people while doing good"
+            category="Social Causes"
+            image="/images/social-causes.jpg"
+          />
+        </div>
+
+        <div className="w-[280px] shrink-0">
+          <ExploreCard
+            title="Good food tastes better together"
+            category="Community"
+            image="/images/community.jpg"
+          />
+        </div>
+      </Section>
+
+      {/* Section with SmallCards */}
+      <Section title="Weekend Activities">
+        <div className="w-[300px] shrink-0">
+          <SmallCard
+            title="Join our clean-up walk at Brabrand lake!"
+            image="/images/cleanup-walk.jpg"
+            location="Brabrand, Aarhus"
+          />
+        </div>
+
+        <div className="w-[300px] shrink-0">
+          <SmallCard
+            title="Weekend yoga volunteers wanted!"
+            image="/images/weekend-yoga.jpg"
+            location="Nørrebro, Copenhagen"
+          />
+        </div>
+      </Section>
   </div>
 
   {/* interests overlay appears only when opened */}
