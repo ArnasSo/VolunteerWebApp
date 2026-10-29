@@ -89,7 +89,7 @@ navigate(`/explore/results?${params.toString()}`);
 }
 
 return (
-<div className="min-h-screen bg-[#F4F9F5] px-5 py-8 text-gray-900">
+<div className="min-h-screen overflow-x-clip bg-[#F4F9F5] px-5 py-8 text-gray-900">
 
   {/* center the search content and limit its desktop width */}
   <div className="mx-auto max-w-xl">
@@ -171,7 +171,7 @@ return (
     </div>
     {/* Section with ExploreCards */}
       <Section title="Find something you love doing">
-        <div className=" w-[280px] shrink-0">
+        <div className=" w-[230px] shrink-0 snap-start">
           <ExploreCard
             title="Meet new people while doing good"
             category="Social Causes"
@@ -179,7 +179,7 @@ return (
           />
         </div>
 
-        <div className="w-[280px] shrink-0">
+        <div className="w-[230px] shrink-0 snap-start">
           <ExploreCard
             title="Good food tastes better together"
             category="Community Dinner"
@@ -190,7 +190,7 @@ return (
 
       {/* Section with SmallCards */}
       <Section title="Weekend Activities">
-        <div className="w-[300px] shrink-0">
+        <div className="w-[250px] shrink-0 snap-start">
           <SmallCard
             title="Join our clean-up walk at Brabrand lake!"
             image="public/images/opportunity-brabrandlake-cleanup.jpg"
@@ -198,7 +198,7 @@ return (
           />
         </div>
 
-        <div className="w-[300px] shrink-0">
+        <div className="w-[250px] shrink-0 snap-start">
           <SmallCard
             title="Weekend yoga volunteers wanted!"
             image="public/images/opportunity-fun-movement.jpg"
