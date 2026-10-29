@@ -42,7 +42,7 @@ export default function Navigation() {
       icon: "/images/tabler_home.svg",
     },
     {
-      label: "Explore",
+      label: "Opportunity",
       mobileLabel: "Opportunity",
       path: "/explore",
       icon: "/images/tabler_search.svg",
@@ -63,7 +63,7 @@ export default function Navigation() {
       icon: "/images/tabler_home.svg",
     },
     {
-      label: "Explore",
+      label: "Opportunity",
       mobileLabel: "Opportunity",
       path: "/explore",
       icon: "/images/tabler_search.svg",

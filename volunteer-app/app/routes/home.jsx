@@ -25,9 +25,9 @@ export async function clientLoader() {
 export default function Home({ loaderData }) {
   const { articles } = loaderData;
   return (
-    <div className="px-6">
+    <div className="w-full bg-[#F3F8F3] pt-5 pb-24 md:pb-0">
       {/* temporary heading until we build the home page from figma */}
-      <div className="flex gap-4 items-center justify-center">
+      <div className="flex items-center justify-center gap-4 px-6 md:hidden">
         <img
           src="/volunteer-hub-logo.svg"
           alt="volunteer hub log"
@@ -40,7 +40,7 @@ export default function Home({ loaderData }) {
 
       {/* Hero Section */}
       <section
-        className="flex w-full min-h-[355px] flex-col items-center justify-center gap-3 bg-cover bg-center px-6 lg:min-h-[519px]"
+        className="flex w-full min-h-[355px] flex-col items-center justify-center gap-3 bg-cover bg-center px-6 lg:min-h-[519px] lg:bg-[center_35%]"
         style={{
           backgroundImage: `
       linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
@@ -98,17 +98,24 @@ export default function Home({ loaderData }) {
         </p>
       </section>
 
-      <div className="flex flex-col items-start gap-9">
-        {articles.map((article) => (
-          <ArticleCard
-            key={article.id}
-            image={article.image_url}
-            author={article.author}
-            title={article.title}
-            tags={article.tags || []}
-          />
-        ))}
-      </div>
+      {/* Volunteer Guides & Tips */}
+      <section className="mx-auto w-full max-w-[1232px] px-6 py-10 lg:pb-24">
+        {/* Section Title */}
+        <h2 className="font-kbh mb-6 text-[24px] font-bold text-[#1F4D37] lg:text-[36px]">
+          Volunteer Guides & Tips
+        </h2>
+        <div className="flex flex-col items-start gap-9 lg:grid lg:grid-cols-3 lg:gap-6 md:items-center lg:items-stretch">
+          {articles.map((article) => (
+            <ArticleCard
+              key={article.id}
+              image={article.image_url}
+              author={article.author}
+              title={article.title}
+              tags={article.tags || []}
+            />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
