@@ -106,13 +106,19 @@ export default function Home({ loaderData }) {
         </h2>
         <div className="flex flex-col items-start gap-9 lg:grid lg:grid-cols-3 lg:gap-6 md:items-center lg:items-stretch">
           {articles.map((article) => (
-            <ArticleCard
+            <Link
               key={article.id}
-              image={article.image_url}
-              author={article.author}
-              title={article.title}
-              tags={article.tags || []}
-            />
+              to={`/articles/${article.id}`}
+              className="block w-full max-w-[345px] lg:max-w-none"
+            >
+              <ArticleCard
+                key={article.id}
+                image={article.image_url}
+                author={article.author}
+                title={article.title}
+                tags={article.tags || []}
+              />
+            </Link>
           ))}
         </div>
       </section>
