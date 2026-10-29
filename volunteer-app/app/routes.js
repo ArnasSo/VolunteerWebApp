@@ -11,12 +11,10 @@ export default [
 
   // volunteer account pages
   route("my-activity", "routes/my-activity.jsx"),
-  route("saved", "routes/saved.jsx"),
   route("profile", "routes/profile.jsx"),
 
   // login and registration
   route("login", "routes/login.jsx"),
-  route("signup", "routes/signup.jsx"),
 
   //articles
   route("articles/:articlesId", "routes/articles-details.jsx" ),
