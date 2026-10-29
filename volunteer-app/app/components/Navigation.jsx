@@ -97,7 +97,7 @@ export default function Navigation() {
   md:static md:h-auto md:items-center md:justify-end md:gap-8 md:border-t-0 md:border-b md:px-8 md:py-3`}
     >
       {/* Logo and name - desktop only */}
-      <div className="hidden items-center gap-2 md:mr-auto md:flex">
+      <NavLink to="/" className="hidden items-center gap-2 md:mr-auto md:flex">
         <img
           src="/volunteer-hub-logo.svg"
           alt="Volunteer Hub logo"
@@ -106,7 +106,7 @@ export default function Navigation() {
         <h1 className="font-kbh text-lg font-semibold text-[#173F30]">
           Volunteer Hub
         </h1>
-      </div>
+      </NavLink>
       {/* wait until the login status is known before showing links */}
 
       {isLoggedIn !== null &&
