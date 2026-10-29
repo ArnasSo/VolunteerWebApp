@@ -82,9 +82,7 @@ export async function clientLoader() {
     saved: saved || [],
   };
 }
-
 // dummy completed activities for the done tab
-// these are examples and are not stored in supabase
 const completedActivities = [
   {
     id: 1,

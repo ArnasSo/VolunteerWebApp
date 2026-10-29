@@ -2,6 +2,53 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { supabase } from "../lib/supabase";
 
+// navigation links available to guests
+const guestLinks = [
+  {
+    label: "Home",
+    path: "/",
+    icon: "/images/tabler_home.svg",
+  },
+  {
+    label: "Opportunity",
+    mobileLabel: "Opportunity",
+    path: "/explore",
+    icon: "/images/tabler_search.svg",
+  },
+  {
+    label: "Login",
+    mobileLabel: "Log in",
+    path: "/login",
+    icon: "/images/tabler_user.svg",
+  },
+];
+
+// navigation links available to logged-in volunteers
+const userLinks = [
+  {
+    label: "Home",
+    path: "/",
+    icon: "/images/tabler_home.svg",
+  },
+  {
+    label: "Opportunity",
+    mobileLabel: "Opportunity",
+    path: "/explore",
+    icon: "/images/tabler_search.svg",
+  },
+  {
+    label: "My Activity",
+    mobileLabel: "My activity",
+    path: "/my-activity",
+    icon: "/images/tabler_heart-handshake.svg",
+  },
+  {
+    label: "Profile",
+    path: "/profile",
+    icon: "/images/tabler_user.svg",
+  },
+];
+
 export default function Navigation() {
   // store whether the volunteer is logged in
   // null means we haven't checked the login status yet
@@ -33,53 +80,6 @@ export default function Navigation() {
       subscription.unsubscribe();
     };
   }, []);
-
-  // navigation links available to guests
-  const guestLinks = [
-    {
-      label: "Home",
-      path: "/",
-      icon: "/images/tabler_home.svg",
-    },
-    {
-      label: "Opportunity",
-      mobileLabel: "Opportunity",
-      path: "/explore",
-      icon: "/images/tabler_search.svg",
-    },
-    {
-      label: "Login",
-      mobileLabel: "Log in",
-      path: "/login",
-      icon: "/images/tabler_user.svg",
-    },
-  ];
-
-  // navigation links available to logged-in volunteers
-  const userLinks = [
-    {
-      label: "Home",
-      path: "/",
-      icon: "/images/tabler_home.svg",
-    },
-    {
-      label: "Opportunity",
-      mobileLabel: "Opportunity",
-      path: "/explore",
-      icon: "/images/tabler_search.svg",
-    },
-    {
-      label: "My Activity",
-      mobileLabel: "My activity",
-      path: "/my-activity",
-      icon: "/images/tabler_heart-handshake.svg",
-    },
-    {
-      label: "Profile",
-      path: "/profile",
-      icon: "/images/tabler_user.svg",
-    },
-  ];
 
   // choose the correct links based on login status
   const links = isLoggedIn ? userLinks : guestLinks;
@@ -115,21 +115,25 @@ export default function Navigation() {
             key={link.path}
             to={link.path}
             end
-            className={({ isActive }) =>
-              `
-flex flex-col items-center gap-1 whitespace-nowrap text-center font-[Inter] text-xs font-normal md:font-kbh md:text-sm
+            className={({ isActive }) => `
+  flex flex-col items-center gap-1 whitespace-nowrap
+  text-center font-[Inter] text-xs font-normal
+  md:font-kbh md:text-sm
 
-        ${isLoggedIn ? "flex-1" : "pt-3"}
-        ${isActive ? "font-semibold text-[#F26B4D]" : "text-[#2E6B4E]"}
-        md:flex-none md:flex-row md:pt-0
-        ${
-          link.label === "Login"
-            ? "md:rounded-md md:border md:border-[#DDEBDE] md:bg-white md:px-3 md:py-2 md:font-semibold md:text-[#1F4D37]"
-            : !isActive
-              ? "md:text-[#6A6C70]"
-              : ""
-        }`
-            }
+  ${isLoggedIn ? "flex-1" : "pt-3"}
+
+  ${isActive ? "font-semibold text-[#F26B4D]" : "text-[#2E6B4E]"}
+
+  md:flex-none md:flex-row md:pt-0
+
+  ${
+    link.label === "Login"
+      ? "md:rounded-md md:border md:border-[#DDEBDE] md:bg-white md:px-3 md:py-2 md:font-semibold md:text-[#1F4D37]"
+      : !isActive
+        ? "md:text-[#6A6C70]"
+        : ""
+  }
+`}
           >
             {/* Mobile icon */}
             <span
