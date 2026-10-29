@@ -85,7 +85,7 @@ export default function ArticleDetails({ loaderData }) {
         {/* Read More Articles CTA */}
         <div className="mt-16 flex justify-center">
           <Link
-            to="/"
+            to="/#articles"
             className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#F26B4D] px-8 text-[14px] font-semibold text-white transition-colors hover:bg-[#D65A3F]"
           >
             Read more articles

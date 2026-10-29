@@ -99,7 +99,10 @@ export default function Home({ loaderData }) {
       </section>
 
       {/* Volunteer Guides & Tips */}
-      <section className="mx-auto w-full max-w-[1232px] px-6 py-10 lg:pb-24">
+      <section
+        id="articles"
+        className="mx-auto w-full max-w-[1232px] px-6 py-10 lg:pb-24"
+      >
         {/* Section Title */}
         <h2 className="font-kbh mb-6 text-[24px] font-bold text-[#1F4D37] lg:text-[36px]">
           Volunteer Guides & Tips
