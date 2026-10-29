@@ -48,7 +48,7 @@ export default function App() {
   return (
     <>
       <Navigation />
-      <main className="bg-[#F3F8F3] pb-24 md:pb-0">
+      <main className="max-md:[&>*]:pb-32">
         <Outlet />
       </main>
     </>
