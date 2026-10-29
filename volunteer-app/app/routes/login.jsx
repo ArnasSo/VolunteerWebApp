@@ -67,20 +67,22 @@ export default function Login() {
     <div className="min-h-screen bg-[#F4F9F5] px-6 text-gray-900">
       {/* center the content horizontally and limit its width */}
       <div className="mx-auto max-w-md pt-32">
-        {/* show a back button only on the password screen */}
-        {showPassword && (
+        {/* reserve the same space for the back button on both screens */}
+        <div className="mb-8 h-6">
+          {showPassword && (
           <button
-            type="button"
+           type="button"
             onClick={() => {
               setShowPassword(false);
               setPassword("");
-              setError("");
-            }}
-            className="mb-8 text-green-900"
-          >
-            ← Back
-          </button>
-        )}
+             setError("");
+          }}
+          className="text-green-900"
+        >
+          ← Back
+      </button>
+  )}
+</div>
 
         {/* page heading */}
         <h1 className="text-center text-2xl font-bold text-[#173F30]">
