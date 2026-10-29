@@ -1,4 +1,5 @@
 import ArticleCard from "../components/ArticleCard";
+import Statistic from "../components/Statistic";
 import { supabase } from "../lib/supabase";
 import { Link } from "react-router";
 
@@ -25,9 +26,12 @@ export async function clientLoader() {
 export default function Home({ loaderData }) {
   const { articles } = loaderData;
   return (
-    <div className="w-full bg-[#F3F8F3] pt-5 pb-24 md:pb-0">
+    <div className="w-full bg-[#F3F8F3]">
       {/* temporary heading until we build the home page from figma */}
-      <div className="flex items-center justify-center gap-4 px-6 md:hidden">
+      <div
+        className="flex items-center justify-center gap-6
+       pt-6 px-6 md:hidden"
+      >
         <img
           src="/volunteer-hub-logo.svg"
           alt="volunteer hub log"
@@ -64,18 +68,9 @@ export default function Home({ loaderData }) {
       <section className="flex w-full flex-col items-center bg-[#F3F8F3] px-6 py-10">
         {/* Statistics */}
         <div className="inline-flex items-center gap-9">
-          {["Opportunities", "Organizations", "Communities"].map((label) => (
-            <div key={label} className="flex flex-col items-center">
-              <div className="flex items-center gap-[3px] py-2">
-                <span className="font-[Inter] text-[26px] font-semibold text-[#21272A]">
-                  00+
-                </span>
-              </div>
-              <p className="font-[Inter] text-[10px] font-normal text-[#21272A]">
-                {label}
-              </p>
-            </div>
-          ))}
+          <Statistic value="300+" label="Opportunities" />
+          <Statistic value="90+" label="Organizations" />
+          <Statistic value="60+" label="Communities" />
         </div>
 
         {/* CTA Button */}
@@ -99,7 +94,10 @@ export default function Home({ loaderData }) {
       </section>
 
       {/* Volunteer Guides & Tips */}
-      <section className="mx-auto w-full max-w-[1232px] px-6 py-10 lg:pb-24">
+      <section
+        id="articles"
+        className="mx-auto w-full max-w-[1232px] px-6 py-10 lg:pb-24"
+      >
         {/* Section Title */}
         <h2 className="font-kbh mb-6 text-[24px] font-bold text-[#1F4D37] lg:text-[36px]">
           Volunteer Guides & Tips
