@@ -89,13 +89,13 @@ const completedActivities = [
     id: 1,
     title: "Make newcomers feel at home through conversation",
     organization: "Røde Kors",
-    image: "/images/done1.png",
+    image: "/images/done2.png",
   },
   {
     id: 2,
     title: "Help care for cats while their owners recover",
     organization: "Kattens Værn",
-    image: "/images/done2.png",
+    image: "/images/done1.png",
   },
 ];
 
