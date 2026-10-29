@@ -27,7 +27,6 @@ export default function Home({ loaderData }) {
   const { articles } = loaderData;
   return (
     <div className="w-full bg-[#F3F8F3]">
-      {/* temporary heading until we build the home page from figma */}
       <div
         className="flex items-center justify-center gap-6
        pt-6 px-6 md:hidden"
@@ -110,7 +109,6 @@ export default function Home({ loaderData }) {
               className="block w-full max-w-[345px] lg:max-w-none"
             >
               <ArticleCard
-                key={article.id}
                 image={article.image_url}
                 author={article.author}
                 title={article.title}
