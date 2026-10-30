@@ -86,7 +86,7 @@ export default function Home({ loaderData }) {
         </Link>
 
         {/* Description */}
-        <p className="mt-4 w-[223px] max-w-full text-center font-[Inter] text-[12px] font-normal text-[#6A6C70] lg:mt-4 lg:w-[420px] lg:text-[12px]">
+        <p className="mt-4 w-[223px] max-w-full text-center font-[Inter] text-[12px] md:text-[14px] font-normal text-[#6A6C70] lg:mt-4 lg:w-[420px] lg:text-[12px]">
           We can help you find the perfect volunteer opportunities that match
           your interests and lifestyle.
         </p>
