@@ -22,18 +22,18 @@ export default function SmallCard({
                 <div className="p-5">
 
                     {/* Opportunity title */}
-                    <h3 className="text-xl font-bold leading-tight text-[#15181e]">
+                    <h3 className="text-lg font-bold leading-tight text-[#15181e]">
                         {title}
                     </h3>
 
                     {/* Opportunity location */}
-                    <div className="mt-4 flex items-center gap-3 text-[#15181e]">
+                    <div className="mt-3 flex items-center gap-3 text-[#15181e]">
                         <MapPin
-                            size={22}
+                            size={17}
                             className="shrink-0"
                             aria-hidden="true"
                         />
-                        <span className="text-base">
+                        <span className="text-base text-sm">
                             {location}
                         </span>
                     </div>

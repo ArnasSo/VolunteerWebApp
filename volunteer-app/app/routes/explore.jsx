@@ -1,24 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import {
-MapPin,
-Filter,
-ChevronDown,
-X,
-} from "lucide-react";
+import { MapPin, Filter, ChevronDown } from "lucide-react";
 import Section from "../components/Section";
 import ExploreCard from "../components/ExploreCard";
 import SmallCard from "../components/SmallCard";
+import InterestsOverlay from "../components/InterestsOverlay";
 
 // meta sets the browser tab title and page description
 export function meta() {
-return [
-{ title: "Explore | Volunteer Hub" },
-{
-name: "description",
-content: "Explore local volunteering opportunities",
-},
-];
+  return [
+    { title: "Explore | Volunteer Hub" },
+    {
+      name: "description",
+      content: "Explore local volunteering opportunities",
+    },
+  ];
 }
 
 // temporary interests from our figma design
@@ -43,274 +39,198 @@ const availableInterests = [
 ];
 
 export default function Explore() {
-// store the location selected by the volunteer
-const [location, setLocation] = useState("");
+  // store the location selected by the volunteer
+  const [location, setLocation] = useState("");
 
-// store all selected interests in an array
-const [interests, setInterests] = useState([]);
+  // store all selected interests in an array
+  const [interests, setInterests] = useState([]);
 
-// control whether the interests overlay is visible
-const [showInterests, setShowInterests] = useState(false);
+  // control whether the interests overlay is visible
+  const [showInterests, setShowInterests] = useState(false);
 
-// useNavigate allows us to move to the results page
-const navigate = useNavigate();
+  // useNavigate allows us to move to the results page
+  const navigate = useNavigate();
 
-// add or remove an interest when the user clicks its pill
-function handleInterestChange(interest) {
-// if already selected, remove it from the array
-if (interests.includes(interest)) {
-setInterests(
-interests.filter((item) => item !== interest)
-);
-} else {
-// otherwise, add it to the array
-setInterests([...interests, interest]);
-}
-}
+  // add or remove an interest when the user clicks its pill
+  function handleInterestChange(interest) {
+    // if already selected, remove it from the array
+    if (interests.includes(interest)) {
+      setInterests(interests.filter((item) => item !== interest));
+    } else {
+      // otherwise, add it to the array
+      setInterests([...interests, interest]);
+    }
+  }
 
-// search for opportunities using the selected filters
-function handleSearch() {
-// URLSearchParams creates query parameters for the results page
-const params = new URLSearchParams();
+  // search for opportunities using the selected filters
+  function handleSearch() {
+    // URLSearchParams creates query parameters for the results page
+    const params = new URLSearchParams();
 
-// add location only if one has been selected
-if (location) {
-  params.set("location", location);
-}
+    // add location only if one has been selected
+    if (location) {
+      params.set("location", location);
+    }
 
-// add selected interests as a comma-separated list
-if (interests.length > 0) {
-  params.set("interests", interests.join(","));
-}
+    // add selected interests as a comma-separated list
+    if (interests.length > 0) {
+      params.set("interests", interests.join(","));
+    }
 
-// navigate to our existing results page
-navigate(`/explore/results?${params.toString()}`);
+    // navigate to our existing results page
+    navigate(`/explore/results?${params.toString()}`);
+  }
 
-}
-
-return (
-<div className="min-h-screen bg-[#F4F9F5] px-5 py-8 text-gray-900">
-
-  {/* center the search content and limit its desktop width */}
-  <div className="mx-auto max-w-xl">
-
-    {/* volunteer hub heading */}
-    <div className="flex gap-4 items-center justify-center">
-      <img src="/volunteer-hub-logo.svg" alt="volunteer hub log" className="mb-6 max-w-24 max-h-24"/>
-      <h1 className="font-kbh mb-6 text-center text-2xl font-[600] text-[#173F30]">
-      Volunteer Hub
-      </h1>
-    </div>
-    {/* search filter container */}
-    <div className="overflow-hidden rounded-2xl border-[4px] border-[#F8C84B] bg-white">
-
-      {/* location dropdown */}
-      <div className="flex items-center gap-4 border-b border-green-100 px-5 py-5">
-
-        {/* location icon */}
-        <MapPin
-          size={26}
-          className="shrink-0 text-[#2C7052]"
-          aria-hidden="true"
-        />
-
-        {/* dropdown label for screen readers */}
-        <label htmlFor="location" className="sr-only">
-          Choose location
-        </label>
-
-        <select
-          id="location"
-          value={location}
-          onChange={(event) => setLocation(event.target.value)}
-          className="min-w-0 flex-1 bg-transparent text-lg outline-none"
-        >
-          <option value="">All locations</option>
-
-          {/* temporary options until we connect locations from supabase */}
-          <option value="Aarhus">Aarhus</option>
-          <option value="Aalborg">Aalborg</option>
-          <option value="Copenhagen">Copenhagen</option>
-        </select>
-      </div>
-
-      {/* button opens the interests overlay */}
-      <button
-        type="button"
-        onClick={() => setShowInterests(true)}
-        className="flex w-full items-center gap-4 px-5 py-5 text-left"
-      >
-        <Filter
-          size={26}
-          className="shrink-0 text-[#2C7052]"
-          aria-hidden="true"
-        />
-
-        {/* display selected interests or placeholder text */}
-        <span className="min-w-0 flex-1 truncate text-lg">
-          {interests.length > 0
-            ? interests.join(", ")
-            : "Select your interests"}
-        </span>
-
-        <ChevronDown
-          size={20}
-          className="shrink-0 text-[#2C7052]"
-          aria-hidden="true"
-        />
-      </button>
-
-      {/* search button keeps our existing search functionality */}
-      <button
-        type="button"
-        onClick={handleSearch}
-        className="w-full bg-gradient-to-r from-[#FF7056] to-[#DF5940] px-6 py-5 text-xl font-semibold text-white"
-      >
-        Search
-      </button>
-    </div>
-    {/* Section with ExploreCards */}
-      <Section title="Find something you love doing">
-        <div className=" w-[280px] shrink-0">
-          <ExploreCard
-            title="Meet new people while doing good"
-            category="Social Causes"
-            image="/images/social-causes.jpg"
+  return (
+    <div className="min-h-screen overflow-x-clip bg-[#F4F9F5] px-5 py-8 text-gray-900">
+      {/* center the search content and limit its desktop width */}
+      <div className="mx-auto max-w-xl">
+        {/* volunteer hub heading */}
+        <div className="flex gap-4 items-center justify-center">
+          <img
+            src="/volunteer-hub-logo.svg"
+            alt="volunteer hub log"
+            className="mb-6 max-w-24 max-h-24"
           />
+          <h1 className="font-kbh mb-6 text-center text-2xl font-[600] text-[#173F30]">
+            Volunteer Hub
+          </h1>
         </div>
+        {/* search filter container */}
+        <div className="overflow-hidden rounded-2xl border-[4px] border-[#F8C84B] bg-white">
+          {/* location dropdown */}
+          <div className="flex items-center gap-4 border-b border-green-100 px-5 py-5">
+            {/* location icon */}
+            <MapPin
+              size={26}
+              className="shrink-0 text-[#2C7052]"
+              aria-hidden="true"
+            />
 
-        <div className="w-[280px] shrink-0">
-          <ExploreCard
-            title="Good food tastes better together"
-            category="Community"
-            image="/images/community.jpg"
-          />
-        </div>
-      </Section>
+            {/* dropdown label for screen readers */}
+            <label htmlFor="location" className="sr-only">
+              Choose location
+            </label>
 
-      {/* Section with SmallCards */}
-      <Section title="Weekend Activities">
-        <div className="w-[300px] shrink-0">
-          <SmallCard
-            title="Join our clean-up walk at Brabrand lake!"
-            image="/images/cleanup-walk.jpg"
-            location="Brabrand, Aarhus"
-          />
-        </div>
-
-        <div className="w-[300px] shrink-0">
-          <SmallCard
-            title="Weekend yoga volunteers wanted!"
-            image="/images/weekend-yoga.jpg"
-            location="Nørrebro, Copenhagen"
-          />
-        </div>
-      </Section>
-  </div>
-
-  {/* interests overlay appears only when opened */}
-  {showInterests && (
-    <div className="fixed inset-0 z-[100] flex items-end">
-
-      {/* dark background behind the overlay */}
-      {/* clicking outside the panel closes it */}
-      <button
-        type="button"
-        aria-label="Close interests"
-        onClick={() => setShowInterests(false)}
-        className="absolute inset-0 bg-black/40"
-      />
-
-      {/* bottom sheet containing the interests */}
-      <section
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="interests-heading"
-        className="relative z-10 flex max-h-[90dvh] w-full flex-col rounded-t-[32px] bg-[#F4F9F5] px-6 pb-8 pt-4 shadow-xl"
-      >
-
-        {/* small handle at the top, matching figma */}
-        <div className="mx-auto mb-8 h-1.5 w-20 rounded-full bg-[#2C7052]" />
-
-        {/* heading and close button */}
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <h2
-              id="interests-heading"
-              className="text-2xl font-bold"
+            <select
+              id="location"
+              value={location}
+              onChange={(event) => setLocation(event.target.value)}
+              className="min-w-0 flex-1 bg-transparent text-lg outline-none"
             >
-              Select your interests
-            </h2>
+              <option value="">All locations</option>
 
-            <p className="mt-1 text-gray-500">
-              Choose the activities that interest you.
-            </p>
+              {/* temporary options until we connect locations from supabase */}
+              <option value="Aarhus">Aarhus</option>
+              <option value="Aalborg">Aalborg</option>
+              <option value="Copenhagen">Copenhagen</option>
+            </select>
           </div>
 
+          {/* button opens the interests overlay */}
           <button
             type="button"
-            aria-label="Close interests"
-            onClick={() => setShowInterests(false)}
-            className="rounded-full p-2 text-green-800"
+            onClick={() => setShowInterests(true)}
+            className="flex w-full items-center gap-4 px-5 py-5 text-left"
           >
-            <X size={22} aria-hidden="true" />
+            <Filter
+              size={26}
+              className="shrink-0 text-[#2C7052]"
+              aria-hidden="true"
+            />
+
+            {/* display selected interests or placeholder text */}
+            <span className="min-w-0 flex-1 truncate text-lg">
+              {interests.length > 0
+                ? interests.join(", ")
+                : "Select your interests"}
+            </span>
+
+            <ChevronDown
+              size={20}
+              className="shrink-0 text-[#2C7052]"
+              aria-hidden="true"
+            />
           </button>
-        </div>
 
-        {/* scrollable list of interests */}
-        <div className="mt-7 flex-1 overflow-y-auto pb-4">
-
-          {/* flex-wrap allows pills to move onto new rows */}
-          <div className="flex flex-wrap gap-3">
-
-            {/* create a selectable pill for every interest */}
-            {availableInterests.map((interest) => {
-              // check whether this interest is currently selected
-              const selected = interests.includes(interest.name);
-
-              return (
-                <button
-                  key={interest.name}
-                  type="button"
-
-                  // clicking a pill selects or deselects it
-                  onClick={() =>
-                    handleInterestChange(interest.name)
-                  }
-
-                  // tell screen readers whether this is selected
-                  aria-pressed={selected}
-
-                  // selected interests use a green background
-                  className={`rounded-full border px-4 py-2 text-sm transition-colors ${
-                    selected
-                      ? "border-[#2C7052] bg-[#2C7052] text-white"
-                      : "border-green-200 bg-white text-gray-900"
-                  }`}
-                >
-                  <span aria-hidden="true">
-                    {interest.icon}
-                  </span>{" "}
-                  {interest.name}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* button saves the current selection and closes the overlay */}
-        <button
-          type="button"
-          onClick={() => setShowInterests(false)}
-          className="mt-4 w-full shrink-0 rounded-full bg-[#2C7052] px-6 py-4 font-semibold text-white"
-        >
-          Apply interests
-          {interests.length > 0 && ` (${interests.length})`}
+          {/* search button keeps our existing search functionality */}
+          <button
+            type="button"
+            onClick={handleSearch}
+            className="w-full bg-gradient-to-r from-[#FF7056] to-[#DF5940] px-6 py-5 text-xl font-semibold text-white"
+          >
+            Search
         </button>
-      </section>
+      </div>
     </div>
-  )}
-</div>
 
-);
+    {/* Wider container for card sections */}
+    <div className="mx-auto w-full max-w-xl lg:max-w-[1200px]">
+      {/* Section with ExploreCards */}
+        <Section title="Find something you love doing">
+          <div className=" w-[230px] shrink-0 snap-start lg:w-full">
+            <ExploreCard
+              title="Meet new people while doing good"
+              category="Social Causes"
+              image="/images/opportunity-newcomers-conversation.jpg"
+            />
+          </div>
+
+          <div className="w-[230px] shrink-0 snap-start lg:w-full">
+            <ExploreCard
+              title="Good food tastes better together"
+              category="Community Dinner"
+              image="/images/opportunity-community-dinner.jpg"
+            />
+          </div>
+
+          <div className="w-[230px] shrink-0 snap-start lg:w-full">
+            <ExploreCard
+              title="Share what you know, inspire someone new"
+              category="Mentoring"
+              image="/images/opportunity-homework-buddy.png"
+            />
+          </div>
+
+        </Section>
+
+        {/* Section with SmallCards */}
+        <Section title="Weekend Activities">
+          <div className="w-[250px] shrink-0 snap-start lg:w-full">
+            <SmallCard
+              title="Join our clean-up walk at Brabrand lake!"
+              image="/images/opportunity-brabrandlake-cleanup.jpg"
+              location="Brabrand, Aarhus"
+            />
+          </div>
+
+          <div className="w-[250px] shrink-0 snap-start lg:w-full">
+            <SmallCard
+              title="Weekend yoga volunteers wanted!"
+              image="/images/opportunity-fun-movement.jpg"
+              location="Nørrebro, Copenhagen"
+            />
+          </div>
+
+          <div className="w-[250px] shrink-0 snap-start lg:w-full">
+            <SmallCard
+              title="Bring joy to someone's weekly walk!"
+              image="/images/opportunity-joy-walk.jpg"
+              location="Aalborg C"
+            />
+          </div>
+
+        </Section>
+      </div>
+      {/* show interests overlay when opened */}
+      {showInterests && (
+        <InterestsOverlay
+          interests={interests}
+          availableInterests={availableInterests}
+          handleInterestChange={handleInterestChange}
+          onClose={() => setShowInterests(false)}
+        />
+      )}
+    </div>
+  );
 }

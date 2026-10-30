@@ -1,5 +1,3 @@
-import { CalendarDays, Clock3, CheckCircle2 } from "lucide-react";
-
 // display one completed volunteering activity
 export default function DoneCard({ activity }) {
   return (

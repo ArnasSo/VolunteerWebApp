@@ -43,12 +43,10 @@ export default function OpportunityCard({ opportunity, isSaved }) {
         .eq("opportunity_id", opportunity.id));
     } else {
       // save this opportunity
-      ({ error } = await supabase
-        .from("saved_opportunities")
-        .insert({
-          profile_id: user.id,
-          opportunity_id: opportunity.id,
-        }));
+      ({ error } = await supabase.from("saved_opportunities").insert({
+        profile_id: user.id,
+        opportunity_id: opportunity.id,
+      }));
     }
 
     if (error) {
@@ -64,10 +62,7 @@ export default function OpportunityCard({ opportunity, isSaved }) {
     // relative lets us position the bookmark over the card image
     <div className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
       {/* link opens the opportunity details */}
-      <Link
-        to={`/opportunities/${opportunity.id}`}
-        className="block"
-      >
+      <Link to={`/opportunities/${opportunity.id}`} className="block">
         {/* opportunity image */}
         {opportunity.image_url && (
           <img
@@ -136,7 +131,9 @@ export default function OpportunityCard({ opportunity, isSaved }) {
         disabled={savingBookmark}
         aria-label={isSaved ? "Remove saved opportunity" : "Save opportunity"}
         aria-pressed={isSaved}
-        className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#DDEBE1] text-[#204F3D] shadow-sm disabled:opacity-50"
+        className="absolute right-4 top-4 flex h-11 w-11
+      items-center justify-center rounded-full 
+      bg-[#DDEBE1] text-[#204F3D] shadow-sm disabled:opacity-50"
       >
         <Bookmark
           size={22}

@@ -82,9 +82,7 @@ export async function clientLoader() {
     saved: saved || [],
   };
 }
-
 // dummy completed activities for the done tab
-// these are examples and are not stored in supabase
 const completedActivities = [
   {
     id: 1,
@@ -216,6 +214,7 @@ export default function MyActivity({ loaderData }) {
             ) : (
               <EmptyState
                 icon="/tabler_bookmark.svg"
+                x
                 title="No saved opportunities yet"
                 description="Save volunteering opportunities you're interested in and find them here later.
 
