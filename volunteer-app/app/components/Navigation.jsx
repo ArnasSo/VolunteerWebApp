@@ -8,6 +8,12 @@ const guestLinks = [
     label: "Home",
     path: "/",
     icon: "/images/tabler_home.svg",
+    mobileOnly: true,
+  },
+  {
+    label: "Articles",
+    path: "/#articles",
+    desktopOnly: true,
   },
   {
     label: "Opportunity",
@@ -29,6 +35,12 @@ const userLinks = [
     label: "Home",
     path: "/",
     icon: "/images/tabler_home.svg",
+    mobileOnly: true,
+  },
+  {
+    label: "Articles",
+    path: "/#articles",
+    desktopOnly: true,
   },
   {
     label: "Opportunity",
@@ -116,6 +128,8 @@ export default function Navigation() {
             to={link.path}
             end
             className={({ isActive }) => `
+            ${link.desktopOnly ? "hidden md:flex" : "flex"}
+  ${link.mobileOnly ? "md:hidden" : ""}
   flex flex-col items-center gap-1 whitespace-nowrap
   text-center font-[Inter] text-xs font-normal
   md:font-kbh md:text-sm

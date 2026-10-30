@@ -4,7 +4,7 @@ export default function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex min-h-dvh w-full items-center justify-center bg-[#F3F8F3] px-6">
+    <div className="flex min-h-dvh w-full items-center justify-center bg-[#D4D5D6] px-6">
       <div className="flex w-full max-w-[320px] flex-col items-center gap-5 text-center">
         {/* 404 Icon and Number */}
         <div className="flex flex-col items-center gap-1">
