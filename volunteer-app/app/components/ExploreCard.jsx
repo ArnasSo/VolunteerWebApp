@@ -1,6 +1,11 @@
+import { NavLink } from "react-router";
+
 export default function ExploreCard({ title, category, image }) {
   return (
-    <div className="group relative block h-[185px] w-full overflow-hidden rounded-[12px]">
+    <NavLink
+      to="/404"
+      className="group relative block h-[185px] w-full overflow-hidden rounded-[12px]"
+    >
       {/* Background image */}
       <img src={image} alt={title} className="h-full w-full object-cover" />
 
@@ -19,6 +24,6 @@ export default function ExploreCard({ title, category, image }) {
           {category}
         </p>
       </div>
-    </div>
+    </NavLink>
   );
 }

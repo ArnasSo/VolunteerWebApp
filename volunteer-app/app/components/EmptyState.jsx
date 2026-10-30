@@ -2,7 +2,7 @@ export default function EmptyState({ icon, title, description }) {
   return (
     <div className="mt-16 flex w-full flex-col items-center text-center">
       {/* Empty State Icon */}
-      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#DDEBDE]">
+      <div className="flex h-20 w-20 items-center justify-center rounded-full">
         <img src={icon} alt="" className="h-10 w-10" />
       </div>
 

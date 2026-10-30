@@ -160,13 +160,13 @@ export default function Explore() {
             className="w-full bg-gradient-to-r from-[#FF7056] to-[#DF5940] px-6 py-5 text-xl font-semibold text-white"
           >
             Search
-        </button>
+          </button>
+        </div>
       </div>
-    </div>
 
-    {/* Wider container for card sections */}
-    <div className="mx-auto w-full max-w-xl lg:max-w-[1200px]">
-      {/* Section with ExploreCards */}
+      {/* Wider container for card sections */}
+      <div className="mx-auto w-full max-w-xl lg:max-w-[1200px]">
+        {/* Section with ExploreCards */}
         <Section title="Find something you love doing">
           <div className=" w-[230px] shrink-0 snap-start lg:w-full">
             <ExploreCard
@@ -191,14 +191,13 @@ export default function Explore() {
               image="/images/opportunity-homework-buddy.png"
             />
           </div>
-
         </Section>
 
         {/* Section with SmallCards */}
         <Section title="Weekend Activities">
           <div className="w-[250px] shrink-0 snap-start lg:w-full">
             <SmallCard
-              title="Join our clean-up walk at Brabrand lake!"
+              title="Join our clean-up walk at our beautiful Brabrand lake!"
               image="/images/opportunity-brabrandlake-cleanup.jpg"
               location="Brabrand, Aarhus"
             />
@@ -206,7 +205,7 @@ export default function Explore() {
 
           <div className="w-[250px] shrink-0 snap-start lg:w-full">
             <SmallCard
-              title="Weekend yoga volunteers wanted!"
+              title="Weekend yoga event is looking for yogi volunteers"
               image="/images/opportunity-fun-movement.jpg"
               location="Nørrebro, Copenhagen"
             />
@@ -214,12 +213,11 @@ export default function Explore() {
 
           <div className="w-[250px] shrink-0 snap-start lg:w-full">
             <SmallCard
-              title="Bring joy to someone's weekly walk!"
+              title="Maybe you can bring a little joy to someone's weekly walk."
               image="/images/opportunity-joy-walk.jpg"
               location="Aalborg C"
             />
           </div>
-
         </Section>
       </div>
       {/* show interests overlay when opened */}

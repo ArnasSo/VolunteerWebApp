@@ -1,5 +1,7 @@
 import ArticleCard from "../components/ArticleCard";
 import Statistic from "../components/Statistic";
+import { useEffect } from "react";
+import { useLocation } from "react-router";
 import { supabase } from "../lib/supabase";
 import { Link } from "react-router";
 
@@ -25,6 +27,20 @@ export async function clientLoader() {
 
 export default function Home({ loaderData }) {
   const { articles } = loaderData;
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === "#articles") {
+      const frame = requestAnimationFrame(() => {
+        document.getElementById("articles")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
+
+      return () => cancelAnimationFrame(frame);
+    }
+  }, [location.hash, location.key]);
   return (
     <div className="w-full bg-[#F3F8F3]">
       <div

@@ -8,6 +8,7 @@ import {
 } from "react-router";
 
 import Navigation from "./components/Navigation.jsx";
+import Footer from "./components/Footer";
 
 import "./app.css";
 
@@ -51,6 +52,7 @@ export default function App() {
       <main className="max-md:[&>*]:pb-32">
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 }
