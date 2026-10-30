@@ -173,7 +173,7 @@ export default function ExploreResults({ loaderData }) {
         {/* show the selected interests if the user chose any */}
         {interests.length > 0 && (
           <div className="mt-3">
-            <p className="font-medium">Selected interests:</p>
+            <p className="font-medium text-gray-800">Selected interests:</p>
 
             {/* map creates one tag for each selected interest */}
             <div className="mt-2 flex flex-wrap gap-2">
@@ -201,7 +201,7 @@ export default function ExploreResults({ loaderData }) {
         </p>
 
         {/* display the opportunities received from supabase */}
-        <div className="mt-6 space-y-8">
+        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {/* create one reusable card for each opportunity */}
           {filteredOpportunities.map((opportunity) => (
             <OpportunityCard

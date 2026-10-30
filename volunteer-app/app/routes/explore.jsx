@@ -160,11 +160,15 @@ export default function Explore() {
             className="w-full bg-gradient-to-r from-[#FF7056] to-[#DF5940] px-6 py-5 text-xl font-semibold text-white"
           >
             Search
-          </button>
-        </div>
-        {/* Section with ExploreCards */}
+        </button>
+      </div>
+    </div>
+
+    {/* Wider container for card sections */}
+    <div className="mx-auto w-full max-w-xl lg:max-w-[1200px]">
+      {/* Section with ExploreCards */}
         <Section title="Find something you love doing">
-          <div className=" w-[230px] shrink-0 snap-start">
+          <div className=" w-[230px] shrink-0 snap-start lg:w-full">
             <ExploreCard
               title="Meet new people while doing good"
               category="Social Causes"
@@ -172,18 +176,27 @@ export default function Explore() {
             />
           </div>
 
-          <div className="w-[230px] shrink-0 snap-start">
+          <div className="w-[230px] shrink-0 snap-start lg:w-full">
             <ExploreCard
               title="Good food tastes better together"
               category="Community Dinner"
               image="/images/opportunity-community-dinner.jpg"
             />
           </div>
+
+          <div className="w-[230px] shrink-0 snap-start lg:w-full">
+            <ExploreCard
+              title="Share what you know, inspire someone new"
+              category="Mentoring"
+              image="/images/opportunity-homework-buddy.png"
+            />
+          </div>
+
         </Section>
 
         {/* Section with SmallCards */}
         <Section title="Weekend Activities">
-          <div className="w-[250px] shrink-0 snap-start">
+          <div className="w-[250px] shrink-0 snap-start lg:w-full">
             <SmallCard
               title="Join our clean-up walk at Brabrand lake!"
               image="/images/opportunity-brabrandlake-cleanup.jpg"
@@ -191,13 +204,22 @@ export default function Explore() {
             />
           </div>
 
-          <div className="w-[250px] shrink-0 snap-start">
+          <div className="w-[250px] shrink-0 snap-start lg:w-full">
             <SmallCard
               title="Weekend yoga volunteers wanted!"
               image="/images/opportunity-fun-movement.jpg"
               location="Nørrebro, Copenhagen"
             />
           </div>
+
+          <div className="w-[250px] shrink-0 snap-start lg:w-full">
+            <SmallCard
+              title="Bring joy to someone's weekly walk!"
+              image="/images/opportunity-joy-walk.jpg"
+              location="Aalborg C"
+            />
+          </div>
+
         </Section>
       </div>
       {/* show interests overlay when opened */}
