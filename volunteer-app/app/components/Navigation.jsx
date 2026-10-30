@@ -128,7 +128,7 @@ export default function Navigation() {
 
   ${
     link.label === "Log in"
-      ? "md:pt-2 md:rounded-xl md:justify-center border md:border-[#DDEBDE] md:bg-white md:px-3 md:py-2 md:font-semibold md:text-[#1F4D37]"
+      ? "md:pt-2 md:rounded-xl md:justify-center md:border md:border-[#DDEBDE] md:bg-white md:px-3 md:py-2 md:font-semibold md:text-[#1F4D37]"
       : !isActive
         ? "md:text-[#6A6C70]"
         : ""

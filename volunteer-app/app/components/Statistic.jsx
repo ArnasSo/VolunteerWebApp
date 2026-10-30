@@ -6,7 +6,7 @@ export default function Statistic({ value, label }) {
           {value}
         </span>
       </div>
-      <p className="font-[Inter] text-[10px] font-normal text-[#21272A] ">
+      <p className="font-[Inter] text-[12px] md:text-[14px] font-normal text-[#21272A] ">
         {label}
       </p>
     </div>
